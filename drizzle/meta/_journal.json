@@ -15,6 +15,13 @@
       "when": 1775184561054,
       "tag": "0001_wild_mentallo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1775188250284,
+      "tag": "0002_messy_kree",
+      "breakpoints": true
     }
   ]
 }

@@ -5,7 +5,8 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { invokeLLM } from "./_core/llm";
 import { generateImage } from "./_core/imageGeneration";
 import { getDb } from "./db";
-import { campaigns, designRequests, feedback, updates, chatMessages } from "../drizzle/schema";
+import { campaigns, designRequests, feedback, updates, chatMessages, stripeSubscriptions, stripePayments, stripeInvoices } from "../drizzle/schema";
+import { createCheckoutSession, getUserActiveSubscription, getUserPaymentHistory, getUserInvoices } from "./stripe-helpers";
 import { eq, desc } from "drizzle-orm";
 import { z } from "zod/v4";
 import { TRPCError } from "@trpc/server";
@@ -267,6 +268,42 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
 
         return { success: true };
       }),
+  }),
+
+  // Stripe Payments
+  stripe: router({
+    createCheckoutSession: protectedProcedure
+      .input(z.object({
+        priceId: z.string(),
+        planId: z.string(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const successUrl = `${ctx.req.headers.origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`;
+        const cancelUrl = `${ctx.req.headers.origin}/pricing`;
+        
+        const url = await createCheckoutSession(
+          ctx.user.id,
+          ctx.user.email || "",
+          input.priceId,
+          successUrl,
+          cancelUrl,
+          ctx.user.name || undefined
+        );
+        
+        return { url };
+      }),
+
+    getSubscription: protectedProcedure.query(async ({ ctx }) => {
+      return await getUserActiveSubscription(ctx.user.id);
+    }),
+
+    getPaymentHistory: protectedProcedure.query(async ({ ctx }) => {
+      return await getUserPaymentHistory(ctx.user.id);
+    }),
+
+    getInvoices: protectedProcedure.query(async ({ ctx }) => {
+      return await getUserInvoices(ctx.user.id);
+    }),
   }),
 
   // Admin

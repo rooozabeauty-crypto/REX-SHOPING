@@ -13,11 +13,15 @@ import Support from "./pages/Support";
 import Updates from "./pages/Updates";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
+import Pricing from "./pages/Pricing";
+import Billing from "./pages/Billing";
+import SubscriptionManager from "./pages/SubscriptionManager";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/pricing" component={Pricing} />
       <Route path="/services" component={Services} />
       <Route path="/design" component={Design} />
       <Route path="/campaigns" component={Campaigns} />
@@ -26,6 +30,8 @@ function Router() {
       <Route path="/updates" component={Updates} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Admin} />
+      <Route path="/billing" component={Billing} />
+      <Route path="/subscription" component={SubscriptionManager} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
