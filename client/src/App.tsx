@@ -16,6 +16,7 @@ import Admin from "./pages/Admin";
 import Pricing from "./pages/Pricing";
 import Billing from "./pages/Billing";
 import SubscriptionManager from "./pages/SubscriptionManager";
+import StoreIntegration from "./pages/StoreIntegration";
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
       <Route path="/admin" component={Admin} />
       <Route path="/billing" component={Billing} />
       <Route path="/subscription" component={SubscriptionManager} />
+      <Route path="/store-integration" component={StoreIntegration} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

@@ -159,3 +159,22 @@ export const stripeInvoices = mysqlTable("stripe_invoices", {
 });
 
 export type StripeInvoice = typeof stripeInvoices.$inferSelect;
+
+// Store Integrations (Salla, Zid, etc.)
+export const storeIntegrations = mysqlTable("store_integrations", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  storeType: mysqlEnum("storeType", ["salla", "zid", "shopify", "woocommerce"]).notNull(),
+  storeName: varchar("storeName", { length: 256 }).notNull(),
+  accessToken: text("accessToken").notNull(),
+  refreshToken: text("refreshToken"),
+  storeUrl: varchar("storeUrl", { length: 512 }),
+  metadata: json("metadata"),
+  isActive: boolean("isActive").default(true).notNull(),
+  lastSyncedAt: timestamp("lastSyncedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type StoreIntegration = typeof storeIntegrations.$inferSelect;
+export type InsertStoreIntegration = typeof storeIntegrations.$inferInsert;
