@@ -5,16 +5,46 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import {
-  Crown, Megaphone, FileText, Image, Video, Mail,
-  Sparkles, RefreshCw, Copy, CheckCircle, Zap, Globe
+  Crown,
+  Megaphone,
+  FileText,
+  Image,
+  Video,
+  Mail,
+  Sparkles,
+  RefreshCw,
+  Copy,
+  CheckCircle,
+  Zap,
+  Globe,
 } from "lucide-react";
 import { toast } from "sonner";
 
 const campaignTypes = [
-  { id: "text", label: "نص إعلاني", icon: FileText, desc: "إعلانات نصية احترافية لجوجل وسوشيال ميديا" },
-  { id: "post", label: "بوست تسويقي", icon: Image, desc: "منشورات جذابة لإنستغرام وتويتر وسناب" },
-  { id: "email", label: "بريد إلكتروني", icon: Mail, desc: "رسائل بريدية احترافية تزيد معدل الفتح" },
-  { id: "seo", label: "محتوى SEO", icon: Globe, desc: "مقالات ومحتوى محسّن لمحركات البحث" },
+  {
+    id: "text",
+    label: "نص إعلاني",
+    icon: FileText,
+    desc: "إعلانات نصية احترافية لجوجل وسوشيال ميديا",
+  },
+  {
+    id: "post",
+    label: "بوست تسويقي",
+    icon: Image,
+    desc: "منشورات جذابة لإنستغرام وتويتر وسناب",
+  },
+  {
+    id: "email",
+    label: "بريد إلكتروني",
+    icon: Mail,
+    desc: "رسائل بريدية احترافية تزيد معدل الفتح",
+  },
+  {
+    id: "seo",
+    label: "محتوى SEO",
+    icon: Globe,
+    desc: "مقالات ومحتوى محسّن لمحركات البحث",
+  },
 ];
 
 const platforms = [
@@ -96,19 +126,48 @@ export default function Campaigns() {
             </div>
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm">
-            <Link href="/" className="text-gray-300 hover:text-blue-400 transition-colors">الرئيسية</Link>
-            <Link href="/services" className="text-gray-300 hover:text-blue-400 transition-colors">الخدمات</Link>
-            <Link href="/design" className="text-gray-300 hover:text-blue-400 transition-colors">التصميم</Link>
-            <Link href="/campaigns" className="text-blue-400 font-bold">الحملات</Link>
-            <Link href="/support" className="text-gray-300 hover:text-blue-400 transition-colors">الدعم</Link>
+            <Link
+              href="/"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الرئيسية
+            </Link>
+            <Link
+              href="/services"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الخدمات
+            </Link>
+            <Link
+              href="/design"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              التصميم
+            </Link>
+            <Link href="/campaigns" className="text-blue-400 font-bold">
+              الحملات
+            </Link>
+            <Link
+              href="/support"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الدعم
+            </Link>
           </div>
           <div>
             {isAuthenticated ? (
               <Link href="/dashboard">
-                <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">لوحة التحكم</button>
+                <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                  لوحة التحكم
+                </button>
               </Link>
             ) : (
-              <a href={getLoginUrl()} className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">ابدأ مجاناً</a>
+              <a
+                href={getLoginUrl()}
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors"
+              >
+                ابدأ مجاناً
+              </a>
             )}
           </div>
         </div>
@@ -116,8 +175,12 @@ export default function Campaigns() {
 
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20"
-          style={{ background: "radial-gradient(ellipse at 30% 50%, #1a2a4e 0%, #0a0a0e 70%)" }}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background:
+              "radial-gradient(ellipse at 30% 50%, #1a2a4e 0%, #0a0a0e 70%)",
+          }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <motion.div
@@ -126,7 +189,9 @@ export default function Campaigns() {
             className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 rounded-full px-4 py-2 mb-8"
           >
             <Megaphone className="w-4 h-4 text-blue-400" />
-            <span className="text-blue-300 text-sm">إنشاء حملات إعلانية احترافية بالذكاء الاصطناعي</span>
+            <span className="text-blue-300 text-sm">
+              إنشاء حملات إعلانية احترافية بالذكاء الاصطناعي
+            </span>
           </motion.div>
           <h1 className="text-5xl md:text-6xl font-black mb-6">
             <span className="text-white">حملاتك الإعلانية</span>
@@ -134,7 +199,8 @@ export default function Campaigns() {
             <span style={{ color: "#4fc3f7" }}>في ثوانٍ معدودة</span>
           </h1>
           <p className="text-gray-400 text-xl max-w-2xl mx-auto">
-            أنشئ نصوصاً وبوستات وبريداً إلكترونياً احترافياً بالعربية والإنجليزية
+            أنشئ نصوصاً وبوستات وبريداً إلكترونياً احترافياً بالعربية
+            والإنجليزية
           </p>
         </div>
       </section>
@@ -147,14 +213,18 @@ export default function Campaigns() {
             <div className="bg-[#0d0d18] rounded-3xl border border-blue-900/30 p-6">
               <div className="flex items-center gap-3 mb-6">
                 <Zap className="w-6 h-6 text-blue-400" />
-                <h2 className="text-xl font-black text-white">إعدادات الحملة</h2>
+                <h2 className="text-xl font-black text-white">
+                  إعدادات الحملة
+                </h2>
               </div>
 
               {/* Campaign Type */}
               <div className="mb-5">
-                <label className="text-gray-400 text-sm mb-3 block">نوع المحتوى</label>
+                <label className="text-gray-400 text-sm mb-3 block">
+                  نوع المحتوى
+                </label>
                 <div className="grid grid-cols-2 gap-3">
-                  {campaignTypes.map((type) => (
+                  {campaignTypes.map(type => (
                     <button
                       key={type.id}
                       onClick={() => setCampaignType(type.id)}
@@ -172,9 +242,11 @@ export default function Campaigns() {
 
               {/* Platform */}
               <div className="mb-5">
-                <label className="text-gray-400 text-sm mb-3 block">المنصة</label>
+                <label className="text-gray-400 text-sm mb-3 block">
+                  المنصة
+                </label>
                 <div className="flex flex-wrap gap-2">
-                  {platforms.map((p) => (
+                  {platforms.map(p => (
                     <button
                       key={p.id}
                       onClick={() => setPlatform(p.id)}
@@ -189,9 +261,11 @@ export default function Campaigns() {
 
               {/* Tone */}
               <div className="mb-5">
-                <label className="text-gray-400 text-sm mb-3 block">نبرة المحتوى</label>
+                <label className="text-gray-400 text-sm mb-3 block">
+                  نبرة المحتوى
+                </label>
                 <div className="flex flex-wrap gap-2">
-                  {tones.map((t) => (
+                  {tones.map(t => (
                     <button
                       key={t.id}
                       onClick={() => setTone(t.id)}
@@ -205,13 +279,15 @@ export default function Campaigns() {
 
               {/* Language */}
               <div className="mb-5">
-                <label className="text-gray-400 text-sm mb-3 block">اللغة</label>
+                <label className="text-gray-400 text-sm mb-3 block">
+                  اللغة
+                </label>
                 <div className="flex gap-3">
                   {[
                     { id: "arabic", label: "العربية 🇸🇦" },
                     { id: "english", label: "الإنجليزية 🇬🇧" },
                     { id: "both", label: "كلاهما" },
-                  ].map((l) => (
+                  ].map(l => (
                     <button
                       key={l.id}
                       onClick={() => setLanguage(l.id)}
@@ -225,20 +301,24 @@ export default function Campaigns() {
 
               {/* Product Info */}
               <div className="mb-5">
-                <label className="text-gray-400 text-sm mb-2 block">اسم المنتج / الخدمة *</label>
+                <label className="text-gray-400 text-sm mb-2 block">
+                  اسم المنتج / الخدمة *
+                </label>
                 <input
                   type="text"
                   value={productName}
-                  onChange={(e) => setProductName(e.target.value)}
+                  onChange={e => setProductName(e.target.value)}
                   placeholder="مثال: عطر الفخامة الملكي"
                   className="w-full bg-[#111] border border-gray-800 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors text-sm"
                 />
               </div>
               <div className="mb-6">
-                <label className="text-gray-400 text-sm mb-2 block">وصف المنتج (اختياري)</label>
+                <label className="text-gray-400 text-sm mb-2 block">
+                  وصف المنتج (اختياري)
+                </label>
                 <textarea
                   value={productDesc}
-                  onChange={(e) => setProductDesc(e.target.value)}
+                  onChange={e => setProductDesc(e.target.value)}
                   placeholder="أضف تفاصيل إضافية عن المنتج أو الخدمة..."
                   className="w-full bg-[#111] border border-gray-800 rounded-xl px-4 py-3 text-white placeholder-gray-600 resize-none h-20 focus:outline-none focus:border-blue-500 transition-colors text-sm"
                 />
@@ -268,14 +348,20 @@ export default function Campaigns() {
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <Megaphone className="w-6 h-6 text-blue-400" />
-                  <h2 className="text-xl font-black text-white">المحتوى المُولَّد</h2>
+                  <h2 className="text-xl font-black text-white">
+                    المحتوى المُولَّد
+                  </h2>
                 </div>
                 {generatedContent && (
                   <button
                     onClick={handleCopy}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#111] border border-gray-800 text-gray-400 hover:border-blue-600 text-sm transition-all"
                   >
-                    {copied ? <CheckCircle className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                    {copied ? (
+                      <CheckCircle className="w-4 h-4 text-green-400" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
                     {copied ? "تم النسخ!" : "نسخ"}
                   </button>
                 )}
@@ -296,8 +382,12 @@ export default function Campaigns() {
                   <div className="w-20 h-20 rounded-full bg-blue-900/20 flex items-center justify-center mb-4">
                     <Sparkles className="w-10 h-10 text-blue-600" />
                   </div>
-                  <p className="text-gray-500 text-lg font-medium">محتواك سيظهر هنا</p>
-                  <p className="text-gray-600 text-sm mt-2">أدخل معلومات منتجك وانقر على توليد</p>
+                  <p className="text-gray-500 text-lg font-medium">
+                    محتواك سيظهر هنا
+                  </p>
+                  <p className="text-gray-600 text-sm mt-2">
+                    أدخل معلومات منتجك وانقر على توليد
+                  </p>
                 </div>
               )}
 
@@ -332,12 +422,36 @@ export default function Campaigns() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: "⚡", title: "سرعة فائقة", desc: "توليد محتوى احترافي في أقل من 30 ثانية" },
-              { icon: "🎯", title: "محتوى مستهدف", desc: "محتوى مخصص لجمهورك ومنصتك المحددة" },
-              { icon: "🌍", title: "ثنائي اللغة", desc: "محتوى بالعربية والإنجليزية بنفس الجودة" },
-              { icon: "🤖", title: "ذكاء اصطناعي متقدم", desc: "يفهم السوق الخليجي واللهجة المحلية" },
-              { icon: "📊", title: "محسّن للتحويل", desc: "محتوى مصمم لزيادة معدلات النقر والشراء" },
-              { icon: "🔄", title: "توليد غير محدود", desc: "أنشئ عشرات النسخ واختر الأفضل" },
+              {
+                icon: "⚡",
+                title: "سرعة فائقة",
+                desc: "توليد محتوى احترافي في أقل من 30 ثانية",
+              },
+              {
+                icon: "🎯",
+                title: "محتوى مستهدف",
+                desc: "محتوى مخصص لجمهورك ومنصتك المحددة",
+              },
+              {
+                icon: "🌍",
+                title: "ثنائي اللغة",
+                desc: "محتوى بالعربية والإنجليزية بنفس الجودة",
+              },
+              {
+                icon: "🤖",
+                title: "ذكاء اصطناعي متقدم",
+                desc: "يفهم السوق الخليجي واللهجة المحلية",
+              },
+              {
+                icon: "📊",
+                title: "محسّن للتحويل",
+                desc: "محتوى مصمم لزيادة معدلات النقر والشراء",
+              },
+              {
+                icon: "🔄",
+                title: "توليد غير محدود",
+                desc: "أنشئ عشرات النسخ واختر الأفضل",
+              },
             ].map((f, i) => (
               <motion.div
                 key={i}
@@ -360,7 +474,8 @@ export default function Campaigns() {
       <footer className="bg-[#060608] border-t border-blue-900/20 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ REX-SHOP™
+            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ
+            REX-SHOP™
           </p>
         </div>
       </footer>

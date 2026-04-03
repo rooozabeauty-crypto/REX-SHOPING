@@ -4,8 +4,15 @@ import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import {
-  CreditCard, Download, Calendar, DollarSign, AlertCircle,
-  CheckCircle, Clock, ArrowRight, Crown
+  CreditCard,
+  Download,
+  Calendar,
+  DollarSign,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  ArrowRight,
+  Crown,
 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -13,7 +20,9 @@ import { ar } from "date-fns/locale";
 
 export default function Billing() {
   const { user, isAuthenticated } = useAuth();
-  const [activeTab, setActiveTab] = useState<"subscription" | "invoices" | "payment-methods">("subscription");
+  const [activeTab, setActiveTab] = useState<
+    "subscription" | "invoices" | "payment-methods"
+  >("subscription");
 
   // Queries
   const subscriptionQuery = trpc.stripe.getSubscription.useQuery(undefined, {
@@ -24,17 +33,24 @@ export default function Billing() {
     enabled: isAuthenticated,
   });
 
-  const paymentHistoryQuery = trpc.stripe.getPaymentHistory.useQuery(undefined, {
-    enabled: isAuthenticated,
-  });
+  const paymentHistoryQuery = trpc.stripe.getPaymentHistory.useQuery(
+    undefined,
+    {
+      enabled: isAuthenticated,
+    }
+  );
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-400 mb-4">يرجى تسجيل الدخول لعرض معلومات الفواتير</p>
+          <p className="text-gray-400 mb-4">
+            يرجى تسجيل الدخول لعرض معلومات الفواتير
+          </p>
           <Link href="/">
-            <button className="btn-gold px-6 py-2 rounded-lg">العودة للرئيسية</button>
+            <button className="btn-gold px-6 py-2 rounded-lg">
+              العودة للرئيسية
+            </button>
           </Link>
         </div>
       </div>
@@ -52,7 +68,9 @@ export default function Billing() {
               العودة إلى لوحة التحكم
             </button>
           </Link>
-          <h1 className="text-4xl font-black text-white mb-2">الفواتير والدفع</h1>
+          <h1 className="text-4xl font-black text-white mb-2">
+            الفواتير والدفع
+          </h1>
           <p className="text-gray-400">إدارة اشتراكك والفواتير والدفعات</p>
         </div>
       </div>
@@ -65,7 +83,7 @@ export default function Billing() {
             { id: "subscription", label: "الاشتراك الحالي", icon: Crown },
             { id: "invoices", label: "الفواتير", icon: CreditCard },
             { id: "payment-methods", label: "طرق الدفع", icon: DollarSign },
-          ].map((tab) => {
+          ].map(tab => {
             const Icon = tab.icon;
             return (
               <button
@@ -99,18 +117,23 @@ export default function Billing() {
               <div className="bg-gradient-to-br from-yellow-900/20 to-[#111] rounded-xl p-8 border border-yellow-600/30">
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <h3 className="text-2xl font-black text-white mb-2">الخطة الحالية</h3>
+                    <h3 className="text-2xl font-black text-white mb-2">
+                      الخطة الحالية
+                    </h3>
                     <p className="text-gray-400">
-                      {subscriptionQuery.data.status === "active" ? "✓ نشطة" : "غير نشطة"}
+                      {subscriptionQuery.data.status === "active"
+                        ? "✓ نشطة"
+                        : "غير نشطة"}
                     </p>
                   </div>
                   <div className="text-right">
                     <div className="text-4xl font-black text-yellow-400">
                       {subscriptionQuery.data.stripePriceId === "price_pro"
                         ? "$79.99"
-                        : subscriptionQuery.data.stripePriceId === "price_enterprise"
-                        ? "$199.99"
-                        : "$29.99"}
+                        : subscriptionQuery.data.stripePriceId ===
+                            "price_enterprise"
+                          ? "$199.99"
+                          : "$29.99"}
                     </div>
                     <p className="text-gray-400">شهرياً</p>
                   </div>
@@ -121,7 +144,11 @@ export default function Billing() {
                     <p className="text-gray-400 text-sm mb-1">تاريخ البدء</p>
                     <p className="text-white font-bold">
                       {subscriptionQuery.data.currentPeriodStart
-                        ? format(new Date(subscriptionQuery.data.currentPeriodStart), "dd MMM yyyy", { locale: ar })
+                        ? format(
+                            new Date(subscriptionQuery.data.currentPeriodStart),
+                            "dd MMM yyyy",
+                            { locale: ar }
+                          )
                         : "—"}
                     </p>
                   </div>
@@ -129,7 +156,11 @@ export default function Billing() {
                     <p className="text-gray-400 text-sm mb-1">تاريخ التجديد</p>
                     <p className="text-white font-bold">
                       {subscriptionQuery.data.currentPeriodEnd
-                        ? format(new Date(subscriptionQuery.data.currentPeriodEnd), "dd MMM yyyy", { locale: ar })
+                        ? format(
+                            new Date(subscriptionQuery.data.currentPeriodEnd),
+                            "dd MMM yyyy",
+                            { locale: ar }
+                          )
                         : "—"}
                     </p>
                   </div>
@@ -144,7 +175,9 @@ export default function Billing() {
                 <div className="flex items-center gap-4">
                   <AlertCircle className="w-6 h-6 text-yellow-500" />
                   <div>
-                    <h3 className="text-white font-bold mb-1">لا توجد اشتراكات نشطة</h3>
+                    <h3 className="text-white font-bold mb-1">
+                      لا توجد اشتراكات نشطة
+                    </h3>
                     <p className="text-gray-400 text-sm">
                       اختر خطة من صفحة الأسعار للبدء
                     </p>
@@ -173,7 +206,7 @@ export default function Billing() {
               </div>
             ) : invoicesQuery.data && invoicesQuery.data.length > 0 ? (
               <div className="space-y-4">
-                {invoicesQuery.data.map((invoice) => (
+                {invoicesQuery.data.map(invoice => (
                   <motion.div
                     key={invoice.id}
                     initial={{ opacity: 0, y: 10 }}
@@ -189,7 +222,9 @@ export default function Billing() {
                           الفاتورة #{invoice.stripeInvoiceId.slice(-8)}
                         </h3>
                         <p className="text-gray-400 text-sm">
-                          {format(new Date(invoice.createdAt), "dd MMM yyyy", { locale: ar })}
+                          {format(new Date(invoice.createdAt), "dd MMM yyyy", {
+                            locale: ar,
+                          })}
                         </p>
                       </div>
                     </div>
@@ -198,14 +233,24 @@ export default function Billing() {
                         <p className="text-white font-bold">
                           ${(invoice.amount / 100).toFixed(2)}
                         </p>
-                        <p className={`text-sm ${
-                          invoice.status === "paid" ? "text-green-400" : "text-yellow-400"
-                        }`}>
-                          {invoice.status === "paid" ? "مدفوعة" : "قيد الانتظار"}
+                        <p
+                          className={`text-sm ${
+                            invoice.status === "paid"
+                              ? "text-green-400"
+                              : "text-yellow-400"
+                          }`}
+                        >
+                          {invoice.status === "paid"
+                            ? "مدفوعة"
+                            : "قيد الانتظار"}
                         </p>
                       </div>
                       {invoice.pdfUrl && (
-                        <a href={invoice.pdfUrl} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={invoice.pdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <button className="bg-gray-800 hover:bg-gray-700 p-2 rounded-lg transition-colors">
                             <Download className="w-5 h-5" />
                           </button>
@@ -235,9 +280,10 @@ export default function Billing() {
               <div className="bg-[#111] rounded-xl p-8 text-center">
                 <div className="w-8 h-8 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin mx-auto" />
               </div>
-            ) : paymentHistoryQuery.data && paymentHistoryQuery.data.length > 0 ? (
+            ) : paymentHistoryQuery.data &&
+              paymentHistoryQuery.data.length > 0 ? (
               <div className="space-y-4">
-                {paymentHistoryQuery.data.map((payment) => (
+                {paymentHistoryQuery.data.map(payment => (
                   <motion.div
                     key={payment.id}
                     initial={{ opacity: 0, y: 10 }}
@@ -246,11 +292,13 @@ export default function Billing() {
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
-                        <div className={`p-3 rounded-lg ${
-                          payment.status === "succeeded"
-                            ? "bg-green-900/20"
-                            : "bg-yellow-900/20"
-                        }`}>
+                        <div
+                          className={`p-3 rounded-lg ${
+                            payment.status === "succeeded"
+                              ? "bg-green-900/20"
+                              : "bg-yellow-900/20"
+                          }`}
+                        >
                           {payment.status === "succeeded" ? (
                             <CheckCircle className="w-6 h-6 text-green-400" />
                           ) : (
@@ -258,9 +306,15 @@ export default function Billing() {
                           )}
                         </div>
                         <div>
-                          <h3 className="text-white font-bold">{payment.description}</h3>
+                          <h3 className="text-white font-bold">
+                            {payment.description}
+                          </h3>
                           <p className="text-gray-400 text-sm">
-                            {format(new Date(payment.createdAt), "dd MMM yyyy HH:mm", { locale: ar })}
+                            {format(
+                              new Date(payment.createdAt),
+                              "dd MMM yyyy HH:mm",
+                              { locale: ar }
+                            )}
                           </p>
                         </div>
                       </div>
@@ -268,10 +322,16 @@ export default function Billing() {
                         <p className="text-white font-bold text-lg">
                           ${(payment.amount / 100).toFixed(2)}
                         </p>
-                        <p className={`text-sm ${
-                          payment.status === "succeeded" ? "text-green-400" : "text-yellow-400"
-                        }`}>
-                          {payment.status === "succeeded" ? "نجحت" : "قيد المعالجة"}
+                        <p
+                          className={`text-sm ${
+                            payment.status === "succeeded"
+                              ? "text-green-400"
+                              : "text-yellow-400"
+                          }`}
+                        >
+                          {payment.status === "succeeded"
+                            ? "نجحت"
+                            : "قيد المعالجة"}
                         </p>
                       </div>
                     </div>
@@ -292,7 +352,8 @@ export default function Billing() {
       <footer className="bg-[#080808] border-t border-yellow-900/20 py-8 mt-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ REX-SHOP™
+            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ
+            REX-SHOP™
           </p>
         </div>
       </footer>

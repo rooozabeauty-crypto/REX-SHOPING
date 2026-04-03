@@ -4,23 +4,36 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import {
-  Crown, Rocket, Sparkles, Zap, Star, Bell,
-  CheckCircle, Clock, ArrowLeft
+  Crown,
+  Rocket,
+  Sparkles,
+  Zap,
+  Star,
+  Bell,
+  CheckCircle,
+  Clock,
+  ArrowLeft,
 } from "lucide-react";
 
 const defaultUpdates = [
   {
     version: "2.0.0",
     title: "إطلاق المساعد الذكي ريكس",
-    description: "أطلقنا مساعدنا الذكي ريكس الذي يتحدث العربية واللهجة الخليجية ويقدم دعماً شاملاً لعملاء REX-SHOP على مدار الساعة.",
+    description:
+      "أطلقنا مساعدنا الذكي ريكس الذي يتحدث العربية واللهجة الخليجية ويقدم دعماً شاملاً لعملاء REX-SHOP على مدار الساعة.",
     type: "feature",
     date: "أبريل 2026",
-    highlights: ["دعم اللهجة الخليجية", "ردود فورية 24/7", "اقتراحات تسويقية ذكية"],
+    highlights: [
+      "دعم اللهجة الخليجية",
+      "ردود فورية 24/7",
+      "اقتراحات تسويقية ذكية",
+    ],
   },
   {
     version: "1.9.0",
     title: "مولّد التصاميم الجرافيكية بالذكاء الاصطناعي",
-    description: "أضفنا قسم التصميم الجرافيكي المدعوم بالذكاء الاصطناعي مع أكثر من 9,000 اقتراح تصميمي لإنشاء شعارات وهويات بصرية احترافية.",
+    description:
+      "أضفنا قسم التصميم الجرافيكي المدعوم بالذكاء الاصطناعي مع أكثر من 9,000 اقتراح تصميمي لإنشاء شعارات وهويات بصرية احترافية.",
     type: "feature",
     date: "مارس 2026",
     highlights: ["9,000+ اقتراح", "توليد في 30 ثانية", "8 أساليب تصميمية"],
@@ -28,7 +41,8 @@ const defaultUpdates = [
   {
     version: "1.8.0",
     title: "ربط متاجر سلة وزد وشوبيفاي",
-    description: "تكامل مباشر مع أبرز منصات التجارة الإلكترونية في المنطقة. الآن يمكنك إدارة متجرك وحملاتك التسويقية من مكان واحد.",
+    description:
+      "تكامل مباشر مع أبرز منصات التجارة الإلكترونية في المنطقة. الآن يمكنك إدارة متجرك وحملاتك التسويقية من مكان واحد.",
     type: "feature",
     date: "فبراير 2026",
     highlights: ["ربط متجر سلة", "ربط متجر زد", "مزامنة المنتجات"],
@@ -36,7 +50,8 @@ const defaultUpdates = [
   {
     version: "1.7.0",
     title: "المحاسب المالي الذكي",
-    description: "أضفنا ميزة المحاسب المالي الذكي الذي يتتبع إيراداتك ومصروفاتك ويقدم تقارير مالية شاملة وتوقعات دقيقة.",
+    description:
+      "أضفنا ميزة المحاسب المالي الذكي الذي يتتبع إيراداتك ومصروفاتك ويقدم تقارير مالية شاملة وتوقعات دقيقة.",
     type: "feature",
     date: "يناير 2026",
     highlights: ["تتبع الإيرادات", "تقارير شهرية", "توقعات ذكية"],
@@ -44,7 +59,8 @@ const defaultUpdates = [
   {
     version: "1.6.0",
     title: "تحسينات الأداء والسرعة",
-    description: "قمنا بتحسين سرعة المنصة بنسبة 40% وتحسين تجربة المستخدم على الأجهزة المحمولة.",
+    description:
+      "قمنا بتحسين سرعة المنصة بنسبة 40% وتحسين تجربة المستخدم على الأجهزة المحمولة.",
     type: "improvement",
     date: "ديسمبر 2025",
     highlights: ["سرعة أعلى بـ 40%", "تحسين الجوال", "واجهة محدّثة"],
@@ -52,7 +68,11 @@ const defaultUpdates = [
 ];
 
 const upcoming = [
-  { title: "توليد فيديوهات إعلانية بالذكاء الاصطناعي", eta: "Q2 2026", icon: "🎥" },
+  {
+    title: "توليد فيديوهات إعلانية بالذكاء الاصطناعي",
+    eta: "Q2 2026",
+    icon: "🎥",
+  },
   { title: "تكامل مع TikTok Ads", eta: "Q2 2026", icon: "🎵" },
   { title: "تحليلات متقدمة بالذكاء الاصطناعي", eta: "Q3 2026", icon: "📊" },
   { title: "نظام إدارة العملاء CRM", eta: "Q3 2026", icon: "👥" },
@@ -78,16 +98,20 @@ export default function Updates() {
   const { isAuthenticated } = useAuth();
   const { data: dbUpdates } = trpc.updates.list.useQuery();
 
-  const displayUpdates = (dbUpdates && dbUpdates.length > 0)
-    ? dbUpdates.map(u => ({
-        version: u.version || "1.0",
-        title: u.title,
-        description: u.description,
-        type: u.type,
-        date: new Date(u.createdAt).toLocaleDateString("ar-SA", { year: "numeric", month: "long" }),
-        highlights: [],
-      }))
-    : defaultUpdates;
+  const displayUpdates =
+    dbUpdates && dbUpdates.length > 0
+      ? dbUpdates.map(u => ({
+          version: u.version || "1.0",
+          title: u.title,
+          description: u.description,
+          type: u.type,
+          date: new Date(u.createdAt).toLocaleDateString("ar-SA", {
+            year: "numeric",
+            month: "long",
+          }),
+          highlights: [],
+        }))
+      : defaultUpdates;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white" dir="rtl">
@@ -101,20 +125,54 @@ export default function Updates() {
             </div>
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm">
-            <Link href="/" className="text-gray-300 hover:text-yellow-400 transition-colors">الرئيسية</Link>
-            <Link href="/services" className="text-gray-300 hover:text-yellow-400 transition-colors">الخدمات</Link>
-            <Link href="/design" className="text-gray-300 hover:text-yellow-400 transition-colors">التصميم</Link>
-            <Link href="/campaigns" className="text-gray-300 hover:text-yellow-400 transition-colors">الحملات</Link>
-            <Link href="/support" className="text-gray-300 hover:text-yellow-400 transition-colors">الدعم</Link>
-            <Link href="/updates" className="text-yellow-400 font-bold">التحديثات</Link>
+            <Link
+              href="/"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الرئيسية
+            </Link>
+            <Link
+              href="/services"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الخدمات
+            </Link>
+            <Link
+              href="/design"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              التصميم
+            </Link>
+            <Link
+              href="/campaigns"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الحملات
+            </Link>
+            <Link
+              href="/support"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الدعم
+            </Link>
+            <Link href="/updates" className="text-yellow-400 font-bold">
+              التحديثات
+            </Link>
           </div>
           <div>
             {isAuthenticated ? (
               <Link href="/dashboard">
-                <button className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">لوحة التحكم</button>
+                <button className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">
+                  لوحة التحكم
+                </button>
               </Link>
             ) : (
-              <a href={getLoginUrl()} className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">ابدأ مجاناً</a>
+              <a
+                href={getLoginUrl()}
+                className="btn-gold px-4 py-2 rounded-lg text-sm font-bold"
+              >
+                ابدأ مجاناً
+              </a>
             )}
           </div>
         </div>
@@ -130,7 +188,9 @@ export default function Updates() {
             className="inline-flex items-center gap-2 bg-yellow-900/30 border border-yellow-600/40 rounded-full px-4 py-2 mb-8"
           >
             <Bell className="w-4 h-4 text-yellow-400" />
-            <span className="text-yellow-300 text-sm">آخر التحديثات والمميزات الجديدة</span>
+            <span className="text-yellow-300 text-sm">
+              آخر التحديثات والمميزات الجديدة
+            </span>
           </motion.div>
           <h1 className="text-5xl md:text-6xl font-black mb-6">
             <span className="gold-gradient">سجل التحديثات</span>
@@ -165,23 +225,34 @@ export default function Updates() {
 
                   <div className="feature-card bg-[#111] rounded-2xl p-6">
                     <div className="flex flex-wrap items-center gap-3 mb-3">
-                      <span className={`text-xs px-2 py-1 rounded-full border ${typeColors[update.type] || typeColors.feature}`}>
+                      <span
+                        className={`text-xs px-2 py-1 rounded-full border ${typeColors[update.type] || typeColors.feature}`}
+                      >
                         {typeLabels[update.type] || update.type}
                       </span>
-                      <span className="text-gray-600 text-sm font-mono">v{update.version}</span>
+                      <span className="text-gray-600 text-sm font-mono">
+                        v{update.version}
+                      </span>
                       <span className="text-gray-600 text-sm flex items-center gap-1">
                         <Clock className="w-3 h-3" />
                         {update.date}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-black text-white mb-3">{update.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-4">{update.description}</p>
+                    <h3 className="text-xl font-black text-white mb-3">
+                      {update.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                      {update.description}
+                    </p>
 
                     {update.highlights && update.highlights.length > 0 && (
                       <div className="flex flex-wrap gap-2">
                         {update.highlights.map((h, j) => (
-                          <span key={j} className="flex items-center gap-1 text-xs text-gray-300 bg-[#1a1a1a] px-3 py-1 rounded-full">
+                          <span
+                            key={j}
+                            className="flex items-center gap-1 text-xs text-gray-300 bg-[#1a1a1a] px-3 py-1 rounded-full"
+                          >
                             <CheckCircle className="w-3 h-3 text-yellow-500" />
                             {h}
                           </span>
@@ -200,11 +271,15 @@ export default function Updates() {
       <section className="py-16 bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <span className="text-yellow-500 text-sm font-bold uppercase tracking-widest">قريباً</span>
+            <span className="text-yellow-500 text-sm font-bold uppercase tracking-widest">
+              قريباً
+            </span>
             <h2 className="text-3xl md:text-4xl font-black mt-3 mb-4">
               ما ينتظرك في <span className="gold-gradient">REX-SHOP</span>
             </h2>
-            <p className="text-gray-400">نعمل باستمرار على إضافة مميزات جديدة لتلبية احتياجاتك</p>
+            <p className="text-gray-400">
+              نعمل باستمرار على إضافة مميزات جديدة لتلبية احتياجاتك
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -240,7 +315,10 @@ export default function Updates() {
             <p className="text-gray-400 mb-6">
               سجّل حسابك وستصلك إشعارات فورية بكل تحديث وميزة جديدة في REX-SHOP
             </p>
-            <a href={getLoginUrl()} className="btn-gold px-8 py-3 rounded-xl font-bold inline-flex items-center gap-2">
+            <a
+              href={getLoginUrl()}
+              className="btn-gold px-8 py-3 rounded-xl font-bold inline-flex items-center gap-2"
+            >
               <Star className="w-5 h-5" />
               سجّل الآن مجاناً
             </a>
@@ -252,7 +330,8 @@ export default function Updates() {
       <footer className="bg-[#080808] border-t border-yellow-900/20 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ REX-SHOP™
+            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ
+            REX-SHOP™
           </p>
         </div>
       </footer>

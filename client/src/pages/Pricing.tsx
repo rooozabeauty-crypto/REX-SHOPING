@@ -5,8 +5,14 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import {
-  Crown, Check, Zap, Sparkles, ArrowRight,
-  Shield, Headphones, TrendingUp
+  Crown,
+  Check,
+  Zap,
+  Sparkles,
+  ArrowRight,
+  Shield,
+  Headphones,
+  TrendingUp,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -118,18 +124,42 @@ export default function Pricing() {
             </div>
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm">
-            <Link href="/" className="text-gray-300 hover:text-yellow-400 transition-colors">الرئيسية</Link>
-            <Link href="/services" className="text-gray-300 hover:text-yellow-400 transition-colors">الخدمات</Link>
-            <Link href="/pricing" className="text-yellow-400 font-bold">الأسعار</Link>
-            <Link href="/support" className="text-gray-300 hover:text-yellow-400 transition-colors">الدعم</Link>
+            <Link
+              href="/"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الرئيسية
+            </Link>
+            <Link
+              href="/services"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الخدمات
+            </Link>
+            <Link href="/pricing" className="text-yellow-400 font-bold">
+              الأسعار
+            </Link>
+            <Link
+              href="/support"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الدعم
+            </Link>
           </div>
           <div>
             {isAuthenticated ? (
               <Link href="/dashboard">
-                <button className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">لوحة التحكم</button>
+                <button className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">
+                  لوحة التحكم
+                </button>
               </Link>
             ) : (
-              <a href={getLoginUrl()} className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">ابدأ مجاناً</a>
+              <a
+                href={getLoginUrl()}
+                className="btn-gold px-4 py-2 rounded-lg text-sm font-bold"
+              >
+                ابدأ مجاناً
+              </a>
             )}
           </div>
         </div>
@@ -137,8 +167,12 @@ export default function Pricing() {
 
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20"
-          style={{ background: "radial-gradient(ellipse at center, #4a2a00 0%, #0a0a0a 70%)" }}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, #4a2a00 0%, #0a0a0a 70%)",
+          }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <motion.div
@@ -147,7 +181,9 @@ export default function Pricing() {
             className="inline-flex items-center gap-2 bg-yellow-900/20 border border-yellow-600/30 rounded-full px-4 py-2 mb-8"
           >
             <Zap className="w-4 h-4 text-yellow-400" />
-            <span className="text-yellow-300 text-sm">اختر الخطة المناسبة لك</span>
+            <span className="text-yellow-300 text-sm">
+              اختر الخطة المناسبة لك
+            </span>
           </motion.div>
           <h1 className="text-5xl md:text-6xl font-black mb-6">
             <span className="text-white">أسعار</span>
@@ -187,22 +223,32 @@ export default function Pricing() {
 
                 <div className="p-8">
                   {/* Plan Header */}
-                  <h3 className="text-2xl font-black text-white mb-2">{plan.name}</h3>
-                  <p className="text-gray-400 text-sm mb-6">{plan.description}</p>
+                  <h3 className="text-2xl font-black text-white mb-2">
+                    {plan.name}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-6">
+                    {plan.description}
+                  </p>
 
                   {/* Price */}
                   <div className="mb-8">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-5xl font-black text-white">${plan.price}</span>
+                      <span className="text-5xl font-black text-white">
+                        ${plan.price}
+                      </span>
                       <span className="text-gray-400">/{plan.period}</span>
                     </div>
-                    <p className="text-gray-500 text-sm mt-2">بدون التزام، يمكنك الإلغاء في أي وقت</p>
+                    <p className="text-gray-500 text-sm mt-2">
+                      بدون التزام، يمكنك الإلغاء في أي وقت
+                    </p>
                   </div>
 
                   {/* CTA Button */}
                   <button
                     onClick={() => handleSelectPlan(plan.id)}
-                    disabled={isLoading && selectedPlan === plan.id || !createCheckout}
+                    disabled={
+                      (isLoading && selectedPlan === plan.id) || !createCheckout
+                    }
                     className={`w-full py-3 rounded-xl font-bold text-sm transition-all mb-8 flex items-center justify-center gap-2 ${
                       plan.highlighted
                         ? "btn-gold hover:shadow-lg hover:shadow-yellow-500/30"
@@ -226,10 +272,18 @@ export default function Pricing() {
                   <div className="space-y-4">
                     {plan.features.map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
-                        <div className={`mt-1 ${feature.included ? "text-green-400" : "text-gray-600"}`}>
+                        <div
+                          className={`mt-1 ${feature.included ? "text-green-400" : "text-gray-600"}`}
+                        >
                           <Check className="w-5 h-5" />
                         </div>
-                        <span className={feature.included ? "text-gray-300" : "text-gray-600 line-through"}>
+                        <span
+                          className={
+                            feature.included
+                              ? "text-gray-300"
+                              : "text-gray-600 line-through"
+                          }
+                        >
                           {feature.text}
                         </span>
                       </div>
@@ -253,9 +307,14 @@ export default function Pricing() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-800">
-                  <th className="text-right py-4 px-4 text-gray-400 font-bold">الميزة</th>
-                  {plans.map((plan) => (
-                    <th key={plan.id} className="text-center py-4 px-4 text-white font-bold">
+                  <th className="text-right py-4 px-4 text-gray-400 font-bold">
+                    الميزة
+                  </th>
+                  {plans.map(plan => (
+                    <th
+                      key={plan.id}
+                      className="text-center py-4 px-4 text-white font-bold"
+                    >
                       {plan.name}
                     </th>
                   ))}
@@ -263,19 +322,45 @@ export default function Pricing() {
               </thead>
               <tbody>
                 {[
-                  { label: "الحملات الشهرية", values: ["50", "500", "غير محدود"] },
-                  { label: "التصاميم الشهرية", values: ["100", "500", "غير محدود"] },
-                  { label: "مساعد ريكس", values: ["✓", "✓ متقدم", "✓ غير محدود"] },
-                  { label: "دعم العملاء", values: ["البريد", "أولوية 24/7", "مخصص 24/7"] },
-                  { label: "التحليلات", values: ["أساسية", "متقدمة", "متقدمة جداً"] },
+                  {
+                    label: "الحملات الشهرية",
+                    values: ["50", "500", "غير محدود"],
+                  },
+                  {
+                    label: "التصاميم الشهرية",
+                    values: ["100", "500", "غير محدود"],
+                  },
+                  {
+                    label: "مساعد ريكس",
+                    values: ["✓", "✓ متقدم", "✓ غير محدود"],
+                  },
+                  {
+                    label: "دعم العملاء",
+                    values: ["البريد", "أولوية 24/7", "مخصص 24/7"],
+                  },
+                  {
+                    label: "التحليلات",
+                    values: ["أساسية", "متقدمة", "متقدمة جداً"],
+                  },
                   { label: "عدد المتاجر", values: ["1", "5", "غير محدود"] },
-                  { label: "إدارة الفريق", values: ["—", "3 أعضاء", "غير محدود"] },
+                  {
+                    label: "إدارة الفريق",
+                    values: ["—", "3 أعضاء", "غير محدود"],
+                  },
                   { label: "استشارات", values: ["—", "—", "شهرية"] },
                 ].map((row, i) => (
-                  <tr key={i} className="border-b border-gray-900 hover:bg-[#111] transition-colors">
-                    <td className="py-4 px-4 text-gray-400 font-medium">{row.label}</td>
+                  <tr
+                    key={i}
+                    className="border-b border-gray-900 hover:bg-[#111] transition-colors"
+                  >
+                    <td className="py-4 px-4 text-gray-400 font-medium">
+                      {row.label}
+                    </td>
                     {row.values.map((value, j) => (
-                      <td key={j} className="py-4 px-4 text-center text-gray-300">
+                      <td
+                        key={j}
+                        className="py-4 px-4 text-center text-gray-300"
+                      >
                         {value}
                       </td>
                     ))}
@@ -337,13 +422,14 @@ export default function Pricing() {
       {/* CTA */}
       <section className="py-16 bg-gradient-to-r from-yellow-600/10 to-yellow-700/10 border-y border-yellow-900/20">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-black text-white mb-4">
-            جاهز للبدء؟
-          </h2>
+          <h2 className="text-3xl font-black text-white mb-4">جاهز للبدء؟</h2>
           <p className="text-gray-400 mb-8">
             اختر الخطة المناسبة وابدأ رحلتك مع REX-SHOP اليوم
           </p>
-          <a href={getLoginUrl()} className="inline-flex items-center gap-2 btn-gold px-8 py-3 rounded-xl font-bold">
+          <a
+            href={getLoginUrl()}
+            className="inline-flex items-center gap-2 btn-gold px-8 py-3 rounded-xl font-bold"
+          >
             ابدأ مجاناً الآن
             <ArrowRight className="w-5 h-5" />
           </a>
@@ -354,7 +440,8 @@ export default function Pricing() {
       <footer className="bg-[#080808] border-t border-yellow-900/20 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ REX-SHOP™ | منصة التسويق الرقمي الذكي
+            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ
+            REX-SHOP™ | منصة التسويق الرقمي الذكي
           </p>
         </div>
       </footer>

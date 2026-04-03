@@ -5,19 +5,49 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import {
-  Crown, Mail, MessageSquare, Phone, Star, Send,
-  CheckCircle, HelpCircle, Clock, Zap, Heart, X,
-  MessageCircle, AlertCircle, Smile
+  Crown,
+  Mail,
+  MessageSquare,
+  Phone,
+  Star,
+  Send,
+  CheckCircle,
+  HelpCircle,
+  Clock,
+  Zap,
+  Heart,
+  X,
+  MessageCircle,
+  AlertCircle,
+  Smile,
 } from "lucide-react";
 import { toast } from "sonner";
 
 const faqs = [
-  { q: "كيف أبدأ مع REX-SHOP؟", a: "سجّل حساباً مجانياً وستحصل على 14 يوم تجريبي مجاني لجميع الخدمات. لا يلزم بطاقة ائتمانية." },
-  { q: "هل يدعم REX-SHOP متجر سلة وزد؟", a: "نعم! نوفر تكاملاً مباشراً مع متجر سلة وزد وشوبيفاي وووكوميرس وغيرها من المنصات الرائدة." },
-  { q: "هل المساعد الذكي يفهم اللهجة الخليجية؟", a: "بالتأكيد! مساعدنا ريكس متخصص في اللهجة الخليجية ويفهم السوق الخليجي بشكل ممتاز." },
-  { q: "ما هي خيارات الدفع المتاحة؟", a: "نقبل جميع بطاقات الائتمان والمدى وأبل باي وسداد وتحويل بنكي." },
-  { q: "هل يمكنني إلغاء الاشتراك في أي وقت؟", a: "نعم، يمكنك إلغاء اشتراكك في أي وقت دون أي رسوم إضافية." },
-  { q: "كم يستغرق توليد التصاميم؟", a: "يستغرق توليد التصاميم بالذكاء الاصطناعي أقل من 30 ثانية في الغالب." },
+  {
+    q: "كيف أبدأ مع REX-SHOP؟",
+    a: "سجّل حساباً مجانياً وستحصل على 14 يوم تجريبي مجاني لجميع الخدمات. لا يلزم بطاقة ائتمانية.",
+  },
+  {
+    q: "هل يدعم REX-SHOP متجر سلة وزد؟",
+    a: "نعم! نوفر تكاملاً مباشراً مع متجر سلة وزد وشوبيفاي وووكوميرس وغيرها من المنصات الرائدة.",
+  },
+  {
+    q: "هل المساعد الذكي يفهم اللهجة الخليجية؟",
+    a: "بالتأكيد! مساعدنا ريكس متخصص في اللهجة الخليجية ويفهم السوق الخليجي بشكل ممتاز.",
+  },
+  {
+    q: "ما هي خيارات الدفع المتاحة؟",
+    a: "نقبل جميع بطاقات الائتمان والمدى وأبل باي وسداد وتحويل بنكي.",
+  },
+  {
+    q: "هل يمكنني إلغاء الاشتراك في أي وقت؟",
+    a: "نعم، يمكنك إلغاء اشتراكك في أي وقت دون أي رسوم إضافية.",
+  },
+  {
+    q: "كم يستغرق توليد التصاميم؟",
+    a: "يستغرق توليد التصاميم بالذكاء الاصطناعي أقل من 30 ثانية في الغالب.",
+  },
 ];
 
 type ChatMessage = {
@@ -56,7 +86,13 @@ export default function Support() {
     onSuccess: () => {
       setSubmitted(true);
       toast.success("تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.");
-      setFormData({ name: "", email: "", message: "", rating: 5, type: "support" });
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+        rating: 5,
+        type: "support",
+      });
     },
     onError: () => {
       toast.error("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
@@ -124,19 +160,48 @@ export default function Support() {
             </div>
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm">
-            <Link href="/" className="text-gray-300 hover:text-yellow-400 transition-colors">الرئيسية</Link>
-            <Link href="/services" className="text-gray-300 hover:text-yellow-400 transition-colors">الخدمات</Link>
-            <Link href="/design" className="text-gray-300 hover:text-yellow-400 transition-colors">التصميم</Link>
-            <Link href="/campaigns" className="text-gray-300 hover:text-yellow-400 transition-colors">الحملات</Link>
-            <Link href="/support" className="text-yellow-400 font-bold">الدعم</Link>
+            <Link
+              href="/"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الرئيسية
+            </Link>
+            <Link
+              href="/services"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الخدمات
+            </Link>
+            <Link
+              href="/design"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              التصميم
+            </Link>
+            <Link
+              href="/campaigns"
+              className="text-gray-300 hover:text-yellow-400 transition-colors"
+            >
+              الحملات
+            </Link>
+            <Link href="/support" className="text-yellow-400 font-bold">
+              الدعم
+            </Link>
           </div>
           <div>
             {isAuthenticated ? (
               <Link href="/dashboard">
-                <button className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">لوحة التحكم</button>
+                <button className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">
+                  لوحة التحكم
+                </button>
               </Link>
             ) : (
-              <a href={getLoginUrl()} className="btn-gold px-4 py-2 rounded-lg text-sm font-bold">ابدأ مجاناً</a>
+              <a
+                href={getLoginUrl()}
+                className="btn-gold px-4 py-2 rounded-lg text-sm font-bold"
+              >
+                ابدأ مجاناً
+              </a>
             )}
           </div>
         </div>
@@ -144,8 +209,12 @@ export default function Support() {
 
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20"
-          style={{ background: "radial-gradient(ellipse at center, #4a2a00 0%, #0a0a0a 70%)" }}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, #4a2a00 0%, #0a0a0a 70%)",
+          }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <motion.div
@@ -154,7 +223,9 @@ export default function Support() {
             className="inline-flex items-center gap-2 bg-yellow-900/20 border border-yellow-600/30 rounded-full px-4 py-2 mb-8"
           >
             <Zap className="w-4 h-4 text-yellow-400" />
-            <span className="text-yellow-300 text-sm">دعم 24/7 من فريق REX-SHOP</span>
+            <span className="text-yellow-300 text-sm">
+              دعم 24/7 من فريق REX-SHOP
+            </span>
           </motion.div>
           <h1 className="text-5xl md:text-6xl font-black mb-6">
             <span className="text-white">مركز الدعم</span>
@@ -172,9 +243,27 @@ export default function Support() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
-              { icon: Mail, label: "البريد الإلكتروني", value: "nrjseah00@gmail.com", color: "text-blue-400", bg: "bg-blue-900/20" },
-              { icon: Phone, label: "واتساب", value: "0508047159", color: "text-green-400", bg: "bg-green-900/20" },
-              { icon: MessageCircle, label: "الدردشة المباشرة", value: "متاح الآن", color: "text-purple-400", bg: "bg-purple-900/20" },
+              {
+                icon: Mail,
+                label: "البريد الإلكتروني",
+                value: "nrjseah00@gmail.com",
+                color: "text-blue-400",
+                bg: "bg-blue-900/20",
+              },
+              {
+                icon: Phone,
+                label: "واتساب",
+                value: "0508047159",
+                color: "text-green-400",
+                bg: "bg-green-900/20",
+              },
+              {
+                icon: MessageCircle,
+                label: "الدردشة المباشرة",
+                value: "متاح الآن",
+                color: "text-purple-400",
+                bg: "bg-purple-900/20",
+              },
             ].map((method, i) => (
               <motion.div
                 key={i}
@@ -184,7 +273,9 @@ export default function Support() {
                 viewport={{ once: true }}
                 className="feature-card bg-[#111] rounded-2xl p-6"
               >
-                <div className={`w-12 h-12 rounded-xl ${method.bg} flex items-center justify-center mb-4`}>
+                <div
+                  className={`w-12 h-12 rounded-xl ${method.bg} flex items-center justify-center mb-4`}
+                >
                   <method.icon className={`w-6 h-6 ${method.color}`} />
                 </div>
                 <h3 className="text-white font-bold mb-2">{method.label}</h3>
@@ -229,7 +320,9 @@ export default function Support() {
               <HelpCircle className="w-8 h-8 text-yellow-500" />
               أسئلة شائعة
             </h2>
-            <p className="text-gray-500">إجابات على أكثر الأسئلة التي نتلقاها</p>
+            <p className="text-gray-500">
+              إجابات على أكثر الأسئلة التي نتلقاها
+            </p>
           </div>
 
           <div className="space-y-4">
@@ -281,7 +374,9 @@ export default function Support() {
               <Smile className="w-6 h-6 text-yellow-500" />
               شارك رأيك معنا
             </h2>
-            <p className="text-gray-500 mb-6">آراؤك مهمة جداً لنا وتساعدنا على التحسن</p>
+            <p className="text-gray-500 mb-6">
+              آراؤك مهمة جداً لنا وتساعدنا على التحسن
+            </p>
 
             {submitted ? (
               <div className="text-center py-8">
@@ -299,21 +394,29 @@ export default function Support() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-gray-400 text-sm mb-2 block">الاسم *</label>
+                    <label className="text-gray-400 text-sm mb-2 block">
+                      الاسم *
+                    </label>
                     <input
                       type="text"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={e =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       className="w-full bg-[#1a1a1a] border border-gray-800 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-yellow-600 text-sm"
                       placeholder="اسمك"
                     />
                   </div>
                   <div>
-                    <label className="text-gray-400 text-sm mb-2 block">البريد الإلكتروني</label>
+                    <label className="text-gray-400 text-sm mb-2 block">
+                      البريد الإلكتروني
+                    </label>
                     <input
                       type="email"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={e =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       className="w-full bg-[#1a1a1a] border border-gray-800 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-yellow-600 text-sm"
                       placeholder="بريدك"
                     />
@@ -321,18 +424,25 @@ export default function Support() {
                 </div>
 
                 <div>
-                  <label className="text-gray-400 text-sm mb-2 block">نوع الرسالة</label>
+                  <label className="text-gray-400 text-sm mb-2 block">
+                    نوع الرسالة
+                  </label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     {[
                       { id: "review", label: "تقييم" },
                       { id: "suggestion", label: "اقتراح" },
                       { id: "complaint", label: "شكوى" },
                       { id: "support", label: "دعم" },
-                    ].map((t) => (
+                    ].map(t => (
                       <button
                         key={t.id}
                         type="button"
-                        onClick={() => setFormData({ ...formData, type: t.id as typeof formData.type })}
+                        onClick={() =>
+                          setFormData({
+                            ...formData,
+                            type: t.id as typeof formData.type,
+                          })
+                        }
                         className={`py-2 rounded-lg text-sm transition-all ${formData.type === t.id ? "btn-gold" : "bg-[#1a1a1a] text-gray-400 border border-gray-800"}`}
                       >
                         {t.label}
@@ -342,9 +452,11 @@ export default function Support() {
                 </div>
 
                 <div>
-                  <label className="text-gray-400 text-sm mb-2 block">التقييم (اختياري)</label>
+                  <label className="text-gray-400 text-sm mb-2 block">
+                    التقييم (اختياري)
+                  </label>
                   <div className="flex gap-2">
-                    {[1, 2, 3, 4, 5].map((r) => (
+                    {[1, 2, 3, 4, 5].map(r => (
                       <button
                         key={r}
                         type="button"
@@ -360,10 +472,14 @@ export default function Support() {
                 </div>
 
                 <div>
-                  <label className="text-gray-400 text-sm mb-2 block">الرسالة *</label>
+                  <label className="text-gray-400 text-sm mb-2 block">
+                    الرسالة *
+                  </label>
                   <textarea
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={e =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
                     placeholder="أخبرنا برأيك..."
                     className="w-full bg-[#1a1a1a] border border-gray-800 rounded-lg px-4 py-3 text-white placeholder-gray-600 resize-none h-32 focus:outline-none focus:border-yellow-600 text-sm"
                   />
@@ -374,7 +490,9 @@ export default function Support() {
                   disabled={submitFeedback.isPending}
                   className="w-full btn-gold py-3 rounded-lg font-bold disabled:opacity-50"
                 >
-                  {submitFeedback.isPending ? "جاري الإرسال..." : "إرسال الرسالة"}
+                  {submitFeedback.isPending
+                    ? "جاري الإرسال..."
+                    : "إرسال الرسالة"}
                 </button>
               </form>
             )}
@@ -410,7 +528,7 @@ export default function Support() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 h-96 bg-[#0d0d0d]">
-              {chatMessages.map((msg) => (
+              {chatMessages.map(msg => (
                 <motion.div
                   key={msg.id}
                   initial={{ opacity: 0, y: 10 }}
@@ -418,10 +536,11 @@ export default function Support() {
                   className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-xs px-4 py-2 rounded-lg text-sm ${msg.type === "user"
-                      ? "bg-yellow-600 text-white"
-                      : "bg-[#1a1a1a] text-gray-300 border border-gray-800"
-                      }`}
+                    className={`max-w-xs px-4 py-2 rounded-lg text-sm ${
+                      msg.type === "user"
+                        ? "bg-yellow-600 text-white"
+                        : "bg-[#1a1a1a] text-gray-300 border border-gray-800"
+                    }`}
                   >
                     {msg.message}
                   </div>
@@ -442,8 +561,8 @@ export default function Support() {
               <input
                 type="text"
                 value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                onChange={e => setInputMessage(e.target.value)}
+                onKeyPress={e => e.key === "Enter" && handleSendMessage()}
                 placeholder="اكتب رسالتك..."
                 className="flex-1 bg-[#1a1a1a] border border-gray-800 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-yellow-600"
               />
@@ -475,7 +594,8 @@ export default function Support() {
       <footer className="bg-[#080808] border-t border-yellow-900/20 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ REX-SHOP™ | منصة التسويق الرقمي الذكي
+            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ
+            REX-SHOP™ | منصة التسويق الرقمي الذكي
           </p>
         </div>
       </footer>
@@ -486,7 +606,12 @@ export default function Support() {
 function ChevronDown(props: any) {
   return (
     <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+      />
     </svg>
   );
 }

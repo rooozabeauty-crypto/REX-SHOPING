@@ -87,9 +87,7 @@
       "compositePrimaryKeys": {
         "campaigns_id": {
           "name": "campaigns_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {},
@@ -147,9 +145,7 @@
       "compositePrimaryKeys": {
         "chat_messages_id": {
           "name": "chat_messages_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {},
@@ -215,9 +211,7 @@
       "compositePrimaryKeys": {
         "design_requests_id": {
           "name": "design_requests_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {},
@@ -298,9 +292,7 @@
       "compositePrimaryKeys": {
         "feedback_id": {
           "name": "feedback_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {},
@@ -389,17 +381,13 @@
       "compositePrimaryKeys": {
         "stripe_invoices_id": {
           "name": "stripe_invoices_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "stripe_invoices_stripeInvoiceId_unique": {
           "name": "stripe_invoices_stripeInvoiceId_unique",
-          "columns": [
-            "stripeInvoiceId"
-          ]
+          "columns": ["stripeInvoiceId"]
         }
       },
       "checkConstraint": {}
@@ -487,17 +475,13 @@
       "compositePrimaryKeys": {
         "stripe_payments_id": {
           "name": "stripe_payments_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "stripe_payments_stripePaymentIntentId_unique": {
           "name": "stripe_payments_stripePaymentIntentId_unique",
-          "columns": [
-            "stripePaymentIntentId"
-          ]
+          "columns": ["stripePaymentIntentId"]
         }
       },
       "checkConstraint": {}
@@ -584,17 +568,13 @@
       "compositePrimaryKeys": {
         "stripe_subscriptions_id": {
           "name": "stripe_subscriptions_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "stripe_subscriptions_stripeSubscriptionId_unique": {
           "name": "stripe_subscriptions_stripeSubscriptionId_unique",
-          "columns": [
-            "stripeSubscriptionId"
-          ]
+          "columns": ["stripeSubscriptionId"]
         }
       },
       "checkConstraint": {}
@@ -670,9 +650,7 @@
       "compositePrimaryKeys": {
         "subscriptions_id": {
           "name": "subscriptions_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {},
@@ -746,9 +724,7 @@
       "compositePrimaryKeys": {
         "platform_updates_id": {
           "name": "platform_updates_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {},
@@ -852,17 +828,13 @@
       "compositePrimaryKeys": {
         "users_id": {
           "name": "users_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "users_openId_unique": {
           "name": "users_openId_unique",
-          "columns": [
-            "openId"
-          ]
+          "columns": ["openId"]
         }
       },
       "checkConstraint": {}

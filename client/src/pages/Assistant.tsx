@@ -2,7 +2,15 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
-import { Crown, Send, Bot, User, Sparkles, RefreshCw, MessageSquare } from "lucide-react";
+import {
+  Crown,
+  Send,
+  Bot,
+  User,
+  Sparkles,
+  RefreshCw,
+  MessageSquare,
+} from "lucide-react";
 import { Streamdown } from "streamdown";
 import { nanoid } from "nanoid";
 
@@ -40,19 +48,25 @@ export default function Assistant() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = trpc.assistant.chat.useMutation({
-    onSuccess: (data) => {
-      setMessages(prev => [...prev, {
-        id: nanoid(),
-        role: "assistant",
-        content: data.message,
-      }]);
+    onSuccess: data => {
+      setMessages(prev => [
+        ...prev,
+        {
+          id: nanoid(),
+          role: "assistant",
+          content: data.message,
+        },
+      ]);
     },
     onError: () => {
-      setMessages(prev => [...prev, {
-        id: nanoid(),
-        role: "assistant",
-        content: "عذراً، حدث خطأ. حاول مرة ثانية يا بطل! 🙏",
-      }]);
+      setMessages(prev => [
+        ...prev,
+        {
+          id: nanoid(),
+          role: "assistant",
+          content: "عذراً، حدث خطأ. حاول مرة ثانية يا بطل! 🙏",
+        },
+      ]);
     },
   });
 
@@ -93,7 +107,10 @@ export default function Assistant() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col" dir="rtl">
+    <div
+      className="min-h-screen bg-[#0a0a0a] text-white flex flex-col"
+      dir="rtl"
+    >
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-yellow-900/20">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -106,7 +123,9 @@ export default function Assistant() {
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 bg-yellow-900/20 border border-yellow-600/30 rounded-full px-3 py-1">
               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-yellow-300 text-sm font-medium">ريكس متاح الآن</span>
+              <span className="text-yellow-300 text-sm font-medium">
+                ريكس متاح الآن
+              </span>
             </div>
           </div>
         </div>
@@ -119,14 +138,18 @@ export default function Assistant() {
           <div className="w-16 h-16 rounded-full gold-gradient-bg flex items-center justify-center mx-auto mb-3 pulse-gold">
             <Bot className="w-8 h-8 text-black" />
           </div>
-          <h1 className="text-2xl font-black gold-gradient">ريكس - مساعدك الذكي</h1>
-          <p className="text-gray-500 text-sm mt-1">خبير التسويق الرقمي الخليجي</p>
+          <h1 className="text-2xl font-black gold-gradient">
+            ريكس - مساعدك الذكي
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">
+            خبير التسويق الرقمي الخليجي
+          </p>
         </div>
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto py-6 space-y-4">
           <AnimatePresence>
-            {messages.map((message) => (
+            {messages.map(message => (
               <motion.div
                 key={message.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -135,19 +158,24 @@ export default function Assistant() {
                 className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
               >
                 {/* Avatar */}
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${message.role === "assistant" ? "gold-gradient-bg" : "bg-blue-600"}`}>
-                  {message.role === "assistant"
-                    ? <Bot className="w-5 h-5 text-black" />
-                    : <User className="w-5 h-5 text-white" />
-                  }
+                <div
+                  className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${message.role === "assistant" ? "gold-gradient-bg" : "bg-blue-600"}`}
+                >
+                  {message.role === "assistant" ? (
+                    <Bot className="w-5 h-5 text-black" />
+                  ) : (
+                    <User className="w-5 h-5 text-white" />
+                  )}
                 </div>
 
                 {/* Bubble */}
-                <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                  message.role === "assistant"
-                    ? "bg-[#111] border border-yellow-900/20 text-gray-200"
-                    : "bg-blue-600 text-white"
-                }`}>
+                <div
+                  className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+                    message.role === "assistant"
+                      ? "bg-[#111] border border-yellow-900/20 text-gray-200"
+                      : "bg-blue-600 text-white"
+                  }`}
+                >
                   {message.role === "assistant" ? (
                     <Streamdown className="text-sm leading-relaxed [&_strong]:text-yellow-400 [&_a]:text-blue-400">
                       {message.content}
@@ -190,7 +218,9 @@ export default function Assistant() {
         {/* Quick Questions */}
         {messages.length <= 1 && (
           <div className="pb-4">
-            <p className="text-gray-600 text-xs mb-3 text-center">أسئلة شائعة</p>
+            <p className="text-gray-600 text-xs mb-3 text-center">
+              أسئلة شائعة
+            </p>
             <div className="flex flex-wrap gap-2 justify-center">
               {quickQuestions.map((q, i) => (
                 <button
@@ -211,16 +241,17 @@ export default function Assistant() {
             <div className="flex-1 bg-[#111] border border-yellow-900/30 rounded-2xl flex items-end gap-2 px-4 py-3 focus-within:border-yellow-600/50 transition-colors">
               <textarea
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="اسأل ريكس عن أي شي..."
                 className="flex-1 bg-transparent text-white placeholder-gray-600 resize-none text-sm outline-none max-h-32 min-h-[24px]"
                 rows={1}
                 style={{ height: "auto" }}
-                onInput={(e) => {
+                onInput={e => {
                   const target = e.target as HTMLTextAreaElement;
                   target.style.height = "auto";
-                  target.style.height = Math.min(target.scrollHeight, 128) + "px";
+                  target.style.height =
+                    Math.min(target.scrollHeight, 128) + "px";
                 }}
               />
               <Sparkles className="w-4 h-4 text-yellow-600 flex-shrink-0 mb-0.5" />
@@ -230,10 +261,11 @@ export default function Assistant() {
               disabled={!input.trim() || sendMessage.isPending}
               className="w-12 h-12 rounded-2xl btn-gold flex items-center justify-center flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {sendMessage.isPending
-                ? <RefreshCw className="w-5 h-5 animate-spin" />
-                : <Send className="w-5 h-5" />
-              }
+              {sendMessage.isPending ? (
+                <RefreshCw className="w-5 h-5 animate-spin" />
+              ) : (
+                <Send className="w-5 h-5" />
+              )}
             </button>
           </div>
           <p className="text-gray-700 text-xs text-center mt-2">
