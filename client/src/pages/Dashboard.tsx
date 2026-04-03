@@ -4,16 +4,44 @@ import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import {
-  Crown, BarChart3, Megaphone, Palette, TrendingUp,
-  Users, Mail, ShoppingBag, Bot, Settings, LogOut,
-  Plus, ArrowLeft, Star, Zap, Globe
+  Crown,
+  BarChart3,
+  Megaphone,
+  Palette,
+  TrendingUp,
+  Users,
+  Mail,
+  ShoppingBag,
+  Bot,
+  Settings,
+  LogOut,
+  Plus,
+  ArrowLeft,
+  Star,
+  Zap,
+  Globe,
 } from "lucide-react";
 
 const quickActions = [
-  { icon: Megaphone, label: "حملة جديدة", href: "/campaigns", color: "bg-blue-600" },
-  { icon: Palette, label: "تصميم جديد", href: "/design", color: "bg-purple-600" },
+  {
+    icon: Megaphone,
+    label: "حملة جديدة",
+    href: "/campaigns",
+    color: "bg-blue-600",
+  },
+  {
+    icon: Palette,
+    label: "تصميم جديد",
+    href: "/design",
+    color: "bg-purple-600",
+  },
   { icon: Bot, label: "اسأل ريكس", href: "/assistant", color: "bg-yellow-600" },
-  { icon: BarChart3, label: "التقارير", href: "/dashboard", color: "bg-green-600" },
+  {
+    icon: BarChart3,
+    label: "التقارير",
+    href: "/dashboard",
+    color: "bg-green-600",
+  },
 ];
 
 const menuItems = [
@@ -48,12 +76,22 @@ export default function Dashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center" dir="rtl">
+      <div
+        className="min-h-screen bg-[#0a0a0a] flex items-center justify-center"
+        dir="rtl"
+      >
         <div className="text-center max-w-md px-4">
           <Crown className="w-20 h-20 text-yellow-500 mx-auto mb-6" />
-          <h2 className="text-3xl font-black text-white mb-4">سجّل دخولك أولاً</h2>
-          <p className="text-gray-400 mb-8">تحتاج لتسجيل الدخول للوصول إلى لوحة التحكم</p>
-          <a href={getLoginUrl()} className="btn-gold px-8 py-4 rounded-xl font-black text-lg inline-block gold-glow">
+          <h2 className="text-3xl font-black text-white mb-4">
+            سجّل دخولك أولاً
+          </h2>
+          <p className="text-gray-400 mb-8">
+            تحتاج لتسجيل الدخول للوصول إلى لوحة التحكم
+          </p>
+          <a
+            href={getLoginUrl()}
+            className="btn-gold px-8 py-4 rounded-xl font-black text-lg inline-block gold-glow"
+          >
             تسجيل الدخول
           </a>
         </div>
@@ -84,8 +122,12 @@ export default function Dashboard() {
               {user?.name?.charAt(0) || "U"}
             </div>
             <div>
-              <div className="text-white font-bold text-sm">{user?.name || "مستخدم"}</div>
-              <div className="text-yellow-500 text-xs">{user?.role === "admin" ? "مشرف" : "عضو"}</div>
+              <div className="text-white font-bold text-sm">
+                {user?.name || "مستخدم"}
+              </div>
+              <div className="text-yellow-500 text-xs">
+                {user?.role === "admin" ? "مشرف" : "عضو"}
+              </div>
             </div>
           </div>
         </div>
@@ -95,7 +137,9 @@ export default function Dashboard() {
           <div className="space-y-1">
             {menuItems.map((item, i) => (
               <Link key={i} href={item.href}>
-                <div className={`flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all ${item.active ? "gold-gradient-bg text-black" : "text-gray-400 hover:bg-yellow-900/10 hover:text-yellow-300"}`}>
+                <div
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all ${item.active ? "gold-gradient-bg text-black" : "text-gray-400 hover:bg-yellow-900/10 hover:text-yellow-300"}`}
+                >
                   <item.icon className="w-5 h-5" />
                   <span className="text-sm font-medium">{item.label}</span>
                 </div>
@@ -137,10 +181,34 @@ export default function Dashboard() {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[
-            { label: "إجمالي الحملات", value: campaigns?.length || 0, icon: Megaphone, color: "text-blue-400", bg: "bg-blue-900/20" },
-            { label: "الزيارات هذا الشهر", value: "12.4K", icon: TrendingUp, color: "text-green-400", bg: "bg-green-900/20" },
-            { label: "معدل التحويل", value: "3.2%", icon: BarChart3, color: "text-yellow-400", bg: "bg-yellow-900/20" },
-            { label: "العملاء النشطون", value: "248", icon: Users, color: "text-purple-400", bg: "bg-purple-900/20" },
+            {
+              label: "إجمالي الحملات",
+              value: campaigns?.length || 0,
+              icon: Megaphone,
+              color: "text-blue-400",
+              bg: "bg-blue-900/20",
+            },
+            {
+              label: "الزيارات هذا الشهر",
+              value: "12.4K",
+              icon: TrendingUp,
+              color: "text-green-400",
+              bg: "bg-green-900/20",
+            },
+            {
+              label: "معدل التحويل",
+              value: "3.2%",
+              icon: BarChart3,
+              color: "text-yellow-400",
+              bg: "bg-yellow-900/20",
+            },
+            {
+              label: "العملاء النشطون",
+              value: "248",
+              icon: Users,
+              color: "text-purple-400",
+              bg: "bg-purple-900/20",
+            },
           ].map((stat, i) => (
             <motion.div
               key={i}
@@ -149,10 +217,14 @@ export default function Dashboard() {
               transition={{ delay: i * 0.1 }}
               className="bg-[#111] rounded-2xl p-6 border border-yellow-900/10"
             >
-              <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mb-4`}>
+              <div
+                className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mb-4`}
+              >
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
               </div>
-              <div className={`text-3xl font-black ${stat.color} mb-1`}>{stat.value}</div>
+              <div className={`text-3xl font-black ${stat.color} mb-1`}>
+                {stat.value}
+              </div>
               <div className="text-gray-500 text-sm">{stat.label}</div>
             </motion.div>
           ))}
@@ -170,10 +242,14 @@ export default function Dashboard() {
                   transition={{ delay: i * 0.1 }}
                   className="feature-card bg-[#111] rounded-2xl p-5 text-center cursor-pointer"
                 >
-                  <div className={`w-12 h-12 rounded-xl ${action.color} flex items-center justify-center mx-auto mb-3`}>
+                  <div
+                    className={`w-12 h-12 rounded-xl ${action.color} flex items-center justify-center mx-auto mb-3`}
+                  >
                     <action.icon className="w-6 h-6 text-white" />
                   </div>
-                  <span className="text-white text-sm font-bold">{action.label}</span>
+                  <span className="text-white text-sm font-bold">
+                    {action.label}
+                  </span>
                 </motion.div>
               </Link>
             ))}
@@ -194,13 +270,26 @@ export default function Dashboard() {
             {campaigns && campaigns.length > 0 ? (
               <div className="space-y-3">
                 {campaigns.slice(0, 5).map((campaign, i) => (
-                  <div key={i} className="flex items-center justify-between p-3 bg-[#1a1a1a] rounded-xl">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between p-3 bg-[#1a1a1a] rounded-xl"
+                  >
                     <div>
-                      <div className="text-white text-sm font-bold">{campaign.title}</div>
-                      <div className="text-gray-500 text-xs">{campaign.type} • {campaign.platform}</div>
+                      <div className="text-white text-sm font-bold">
+                        {campaign.title}
+                      </div>
+                      <div className="text-gray-500 text-xs">
+                        {campaign.type} • {campaign.platform}
+                      </div>
                     </div>
-                    <span className={`text-xs px-2 py-1 rounded-full ${campaign.status === "active" ? "bg-green-900/30 text-green-400" : "bg-gray-900/30 text-gray-400"}`}>
-                      {campaign.status === "active" ? "نشط" : campaign.status === "draft" ? "مسودة" : "مكتمل"}
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${campaign.status === "active" ? "bg-green-900/30 text-green-400" : "bg-gray-900/30 text-gray-400"}`}
+                    >
+                      {campaign.status === "active"
+                        ? "نشط"
+                        : campaign.status === "draft"
+                          ? "مسودة"
+                          : "مكتمل"}
                     </span>
                   </div>
                 ))}
@@ -231,7 +320,20 @@ export default function Dashboard() {
               ))}
             </div>
             <div className="flex justify-between text-xs text-gray-600">
-              {["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"].map((m, i) => (
+              {[
+                "يناير",
+                "فبراير",
+                "مارس",
+                "أبريل",
+                "مايو",
+                "يونيو",
+                "يوليو",
+                "أغسطس",
+                "سبتمبر",
+                "أكتوبر",
+                "نوفمبر",
+                "ديسمبر",
+              ].map((m, i) => (
                 <span key={i}>{m.slice(0, 3)}</span>
               ))}
             </div>
@@ -259,7 +361,9 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <h3 className="text-white font-black">لوحة الإدارة</h3>
-                    <p className="text-gray-500 text-sm">إدارة المستخدمين والإحصائيات والمحتوى</p>
+                    <p className="text-gray-500 text-sm">
+                      إدارة المستخدمين والإحصائيات والمحتوى
+                    </p>
                   </div>
                 </div>
                 <ArrowLeft className="w-5 h-5 text-gray-500" />

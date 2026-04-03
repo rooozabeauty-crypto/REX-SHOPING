@@ -5,9 +5,21 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import {
-  Palette, Sparkles, Crown, Wand2, Image, Type,
-  Layers, Download, RefreshCw, Lock, CheckCircle, Zap,
-  Copy, Share2, Trash2
+  Palette,
+  Sparkles,
+  Crown,
+  Wand2,
+  Image,
+  Type,
+  Layers,
+  Download,
+  RefreshCw,
+  Lock,
+  CheckCircle,
+  Zap,
+  Copy,
+  Share2,
+  Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -37,7 +49,15 @@ export default function Design() {
   const [selectedStyle, setSelectedStyle] = useState("modern");
   const [selectedCategory, setSelectedCategory] = useState("logo");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedImages, setGeneratedImages] = useState<Array<{ id: string; url: string; prompt: string; style: string; timestamp: Date }>>([]);
+  const [generatedImages, setGeneratedImages] = useState<
+    Array<{
+      id: string;
+      url: string;
+      prompt: string;
+      style: string;
+      timestamp: Date;
+    }>
+  >([]);
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
 
   const generateDesign = trpc.design.generate.useMutation({});
@@ -53,29 +73,32 @@ export default function Design() {
     }
 
     setIsGenerating(true);
-    generateDesign.mutate({
-      prompt,
-      style: selectedStyle,
-      category: selectedCategory,
-    }, {
-      onSuccess: (data) => {
-        const newImage = {
-          id: Math.random().toString(36).substr(2, 9),
-          url: data.imageUrl ?? "",
-          prompt,
-          style: selectedStyle,
-          timestamp: new Date(),
-        };
-        setGeneratedImages([newImage, ...generatedImages]);
-        setSelectedImageId(newImage.id);
-        setIsGenerating(false);
-        toast.success("✨ تم توليد التصميم بنجاح!");
+    generateDesign.mutate(
+      {
+        prompt,
+        style: selectedStyle,
+        category: selectedCategory,
       },
-      onError: () => {
-        setIsGenerating(false);
-        toast.error("حدث خطأ أثناء توليد التصميم");
-      },
-    });
+      {
+        onSuccess: data => {
+          const newImage = {
+            id: Math.random().toString(36).substr(2, 9),
+            url: data.imageUrl ?? "",
+            prompt,
+            style: selectedStyle,
+            timestamp: new Date(),
+          };
+          setGeneratedImages([newImage, ...generatedImages]);
+          setSelectedImageId(newImage.id);
+          setIsGenerating(false);
+          toast.success("✨ تم توليد التصميم بنجاح!");
+        },
+        onError: () => {
+          setIsGenerating(false);
+          toast.error("حدث خطأ أثناء توليد التصميم");
+        },
+      }
+    );
   };
 
   const handleDownload = (imageUrl: string) => {
@@ -94,7 +117,9 @@ export default function Design() {
   const handleDelete = (id: string) => {
     setGeneratedImages(generatedImages.filter(img => img.id !== id));
     if (selectedImageId === id) {
-      setSelectedImageId(generatedImages.length > 1 ? generatedImages[0].id : null);
+      setSelectedImageId(
+        generatedImages.length > 1 ? generatedImages[0].id : null
+      );
     }
     toast.success("تم حذف التصميم");
   };
@@ -113,19 +138,48 @@ export default function Design() {
             </div>
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm">
-            <Link href="/" className="text-gray-300 hover:text-blue-400 transition-colors">الرئيسية</Link>
-            <Link href="/services" className="text-gray-300 hover:text-blue-400 transition-colors">الخدمات</Link>
-            <Link href="/design" className="text-blue-400 font-bold">التصميم</Link>
-            <Link href="/campaigns" className="text-gray-300 hover:text-blue-400 transition-colors">الحملات</Link>
-            <Link href="/support" className="text-gray-300 hover:text-blue-400 transition-colors">الدعم</Link>
+            <Link
+              href="/"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الرئيسية
+            </Link>
+            <Link
+              href="/services"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الخدمات
+            </Link>
+            <Link href="/design" className="text-blue-400 font-bold">
+              التصميم
+            </Link>
+            <Link
+              href="/campaigns"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الحملات
+            </Link>
+            <Link
+              href="/support"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الدعم
+            </Link>
           </div>
           <div>
             {isAuthenticated ? (
               <Link href="/dashboard">
-                <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">لوحة التحكم</button>
+                <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                  لوحة التحكم
+                </button>
               </Link>
             ) : (
-              <a href={getLoginUrl()} className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">ابدأ مجاناً</a>
+              <a
+                href={getLoginUrl()}
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors"
+              >
+                ابدأ مجاناً
+              </a>
             )}
           </div>
         </div>
@@ -133,8 +187,12 @@ export default function Design() {
 
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20"
-          style={{ background: "radial-gradient(ellipse at center, #1a1a4e 0%, #080810 70%)" }}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, #1a1a4e 0%, #080810 70%)",
+          }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <motion.div
@@ -143,7 +201,9 @@ export default function Design() {
             className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 rounded-full px-4 py-2 mb-8"
           >
             <Palette className="w-4 h-4 text-blue-400" />
-            <span className="text-blue-300 text-sm">أكثر من 9,000 اقتراح تصميمي بالذكاء الاصطناعي</span>
+            <span className="text-blue-300 text-sm">
+              أكثر من 9,000 اقتراح تصميمي بالذكاء الاصطناعي
+            </span>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -170,14 +230,18 @@ export default function Design() {
               <div className="bg-[#0d0d18] rounded-3xl border border-blue-900/30 p-6 blue-glow sticky top-24">
                 <div className="flex items-center gap-3 mb-6">
                   <Wand2 className="w-6 h-6 text-blue-400" />
-                  <h2 className="text-xl font-black text-white">مولّد التصاميم</h2>
+                  <h2 className="text-xl font-black text-white">
+                    مولّد التصاميم
+                  </h2>
                 </div>
 
                 {/* Category Selection */}
                 <div className="mb-5">
-                  <label className="text-gray-400 text-xs mb-2 block font-bold">نوع التصميم</label>
+                  <label className="text-gray-400 text-xs mb-2 block font-bold">
+                    نوع التصميم
+                  </label>
                   <div className="grid grid-cols-3 gap-2">
-                    {designCategories.map((cat) => (
+                    {designCategories.map(cat => (
                       <button
                         key={cat.id}
                         onClick={() => setSelectedCategory(cat.id)}
@@ -192,9 +256,11 @@ export default function Design() {
 
                 {/* Style Selection */}
                 <div className="mb-5">
-                  <label className="text-gray-400 text-xs mb-2 block font-bold">الأسلوب</label>
+                  <label className="text-gray-400 text-xs mb-2 block font-bold">
+                    الأسلوب
+                  </label>
                   <div className="flex flex-wrap gap-1.5">
-                    {designStyles.map((style) => (
+                    {designStyles.map(style => (
                       <button
                         key={style.id}
                         onClick={() => setSelectedStyle(style.id)}
@@ -208,15 +274,19 @@ export default function Design() {
 
                 {/* Prompt Input */}
                 <div className="mb-5">
-                  <label className="text-gray-400 text-xs mb-2 block font-bold">صف تصميمك</label>
+                  <label className="text-gray-400 text-xs mb-2 block font-bold">
+                    صف تصميمك
+                  </label>
                   <textarea
                     value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
+                    onChange={e => setPrompt(e.target.value)}
                     placeholder="مثال: شعار لمتجر ملابس فاخر باللون الذهبي والأسود..."
                     className="w-full bg-[#111] border border-gray-800 rounded-lg p-3 text-white placeholder-gray-600 resize-none h-24 focus:outline-none focus:border-blue-500 transition-colors text-xs"
                     dir="rtl"
                   />
-                  <div className="text-gray-600 text-xs mt-1">{prompt.length}/500</div>
+                  <div className="text-gray-600 text-xs mt-1">
+                    {prompt.length}/500
+                  </div>
                 </div>
 
                 {/* Generate Button */}
@@ -239,7 +309,10 @@ export default function Design() {
                 </button>
 
                 {!isAuthenticated && (
-                  <a href={getLoginUrl()} className="block w-full mt-3 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-white text-center text-sm font-bold transition-colors">
+                  <a
+                    href={getLoginUrl()}
+                    className="block w-full mt-3 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-white text-center text-sm font-bold transition-colors"
+                  >
                     سجّل دخول أولاً
                   </a>
                 )}
@@ -247,16 +320,22 @@ export default function Design() {
                 {/* History */}
                 {generatedImages.length > 0 && (
                   <div className="mt-6 pt-6 border-t border-gray-800">
-                    <h3 className="text-gray-400 text-xs font-bold mb-3">السجل ({generatedImages.length})</h3>
+                    <h3 className="text-gray-400 text-xs font-bold mb-3">
+                      السجل ({generatedImages.length})
+                    </h3>
                     <div className="space-y-2 max-h-48 overflow-y-auto">
-                      {generatedImages.map((img) => (
+                      {generatedImages.map(img => (
                         <button
                           key={img.id}
                           onClick={() => setSelectedImageId(img.id)}
                           className={`w-full p-2 rounded-lg text-left text-xs transition-all ${selectedImageId === img.id ? "bg-blue-600/30 border border-blue-500" : "bg-[#111] border border-gray-800 hover:border-blue-700"}`}
                         >
-                          <div className="font-medium text-white truncate">{img.prompt.substring(0, 20)}...</div>
-                          <div className="text-gray-500 text-xs">{img.style}</div>
+                          <div className="font-medium text-white truncate">
+                            {img.prompt.substring(0, 20)}...
+                          </div>
+                          <div className="text-gray-500 text-xs">
+                            {img.style}
+                          </div>
                         </button>
                       ))}
                     </div>
@@ -300,11 +379,17 @@ export default function Design() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <div className="text-gray-500 text-xs mb-1">الوصف</div>
-                        <div className="text-white text-sm font-medium">{selectedImage.prompt}</div>
+                        <div className="text-white text-sm font-medium">
+                          {selectedImage.prompt}
+                        </div>
                       </div>
                       <div>
-                        <div className="text-gray-500 text-xs mb-1">الأسلوب</div>
-                        <div className="text-white text-sm font-medium capitalize">{selectedImage.style}</div>
+                        <div className="text-gray-500 text-xs mb-1">
+                          الأسلوب
+                        </div>
+                        <div className="text-white text-sm font-medium capitalize">
+                          {selectedImage.style}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -327,7 +412,10 @@ export default function Design() {
                     </button>
                     <button
                       onClick={() => {
-                        navigator.share?.({ url: selectedImage.url, title: "تصميمي من REX-SHOP" });
+                        navigator.share?.({
+                          url: selectedImage.url,
+                          title: "تصميمي من REX-SHOP",
+                        });
                         !navigator.share && toast.info("تم نسخ الرابط");
                       }}
                       className="py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors"
@@ -340,8 +428,12 @@ export default function Design() {
               ) : (
                 <div className="bg-[#0d0d18] rounded-3xl border border-blue-900/30 p-12 blue-glow flex flex-col items-center justify-center min-h-96">
                   <Image className="w-16 h-16 text-gray-700 mb-4" />
-                  <h3 className="text-white font-bold text-lg mb-2">لا توجد تصاميم بعد</h3>
-                  <p className="text-gray-500 text-center">ابدأ بإدخال وصف تصميمك على اليسار واضغط "توليد الآن"</p>
+                  <h3 className="text-white font-bold text-lg mb-2">
+                    لا توجد تصاميم بعد
+                  </h3>
+                  <p className="text-gray-500 text-center">
+                    ابدأ بإدخال وصف تصميمك على اليسار واضغط "توليد الآن"
+                  </p>
                 </div>
               )}
             </div>
@@ -353,7 +445,8 @@ export default function Design() {
       <footer className="bg-[#060608] border-t border-blue-900/20 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ REX-SHOP™ | منصة التسويق الرقمي الذكي
+            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ
+            REX-SHOP™ | منصة التسويق الرقمي الذكي
           </p>
         </div>
       </footer>

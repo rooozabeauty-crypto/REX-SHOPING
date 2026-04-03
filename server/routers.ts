@@ -5,8 +5,22 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { invokeLLM } from "./_core/llm";
 import { generateImage } from "./_core/imageGeneration";
 import { getDb } from "./db";
-import { campaigns, designRequests, feedback, updates, chatMessages, stripeSubscriptions, stripePayments, stripeInvoices } from "../drizzle/schema";
-import { createCheckoutSession, getUserActiveSubscription, getUserPaymentHistory, getUserInvoices } from "./stripe-helpers";
+import {
+  campaigns,
+  designRequests,
+  feedback,
+  updates,
+  chatMessages,
+  stripeSubscriptions,
+  stripePayments,
+  stripeInvoices,
+} from "../drizzle/schema";
+import {
+  createCheckoutSession,
+  getUserActiveSubscription,
+  getUserPaymentHistory,
+  getUserInvoices,
+} from "./stripe-helpers";
 import { eq, desc } from "drizzle-orm";
 import { z } from "zod/v4";
 import { TRPCError } from "@trpc/server";
@@ -25,14 +39,21 @@ export const appRouter = router({
   // AI Assistant (REX Assistant)
   assistant: router({
     chat: publicProcedure
-      .input(z.object({
-        message: z.string().min(1).max(2000),
-        sessionId: z.string(),
-        history: z.array(z.object({
-          role: z.enum(["user", "assistant"]),
-          content: z.string(),
-        })).optional().default([]),
-      }))
+      .input(
+        z.object({
+          message: z.string().min(1).max(2000),
+          sessionId: z.string(),
+          history: z
+            .array(
+              z.object({
+                role: z.enum(["user", "assistant"]),
+                content: z.string(),
+              })
+            )
+            .optional()
+            .default([]),
+        })
+      )
       .mutation(async ({ input, ctx }) => {
         const db = await getDb();
         const systemPrompt = `أنت ريكس، المساعد الذكي الشخصي لمنصة REX-SHOP للتسويق الرقمي.
@@ -53,12 +74,22 @@ export const appRouter = router({
 
         const messages = [
           { role: "system" as const, content: systemPrompt },
-          ...input.history.map(h => ({ role: h.role as "user" | "assistant", content: h.content })),
+          ...input.history.map(h => ({
+            role: h.role as "user" | "assistant",
+            content: h.content,
+          })),
           { role: "user" as const, content: input.message },
         ];
 
-        const response = await invokeLLM({ messages: messages as Array<{ role: "system" | "user" | "assistant"; content: string }> });
-        const assistantMessage = (response.choices[0]?.message?.content as string) || "عذراً، حدث خطأ. حاول مرة أخرى.";
+        const response = await invokeLLM({
+          messages: messages as Array<{
+            role: "system" | "user" | "assistant";
+            content: string;
+          }>,
+        });
+        const assistantMessage =
+          (response.choices[0]?.message?.content as string) ||
+          "عذراً، حدث خطأ. حاول مرة أخرى.";
 
         if (db) {
           await db.insert(chatMessages).values({
@@ -82,25 +113,29 @@ export const appRouter = router({
   // Campaigns
   campaigns: router({
     generate: protectedProcedure
-      .input(z.object({
-        type: z.enum(["text", "post", "email", "seo"]),
-        platform: z.string(),
-        tone: z.string(),
-        productName: z.string().min(1).max(200),
-        productDesc: z.string().optional().default(""),
-        language: z.string().default("arabic"),
-      }))
+      .input(
+        z.object({
+          type: z.enum(["text", "post", "email", "seo"]),
+          platform: z.string(),
+          tone: z.string(),
+          productName: z.string().min(1).max(200),
+          productDesc: z.string().optional().default(""),
+          language: z.string().default("arabic"),
+        })
+      )
       .mutation(async ({ input, ctx }) => {
-        const langInstruction = input.language === "arabic"
-          ? "اكتب المحتوى باللغة العربية الفصحى مع لمسة خليجية"
-          : input.language === "english"
-          ? "Write the content in professional English"
-          : "Write the content in both Arabic and English";
+        const langInstruction =
+          input.language === "arabic"
+            ? "اكتب المحتوى باللغة العربية الفصحى مع لمسة خليجية"
+            : input.language === "english"
+              ? "Write the content in professional English"
+              : "Write the content in both Arabic and English";
 
         const typeInstructions: Record<string, string> = {
           text: "إعلان نصي قصير وجذاب مناسب للإعلانات المدفوعة",
           post: `منشور تسويقي احترافي لمنصة ${input.platform} مع هاشتاقات مناسبة وإيموجي`,
-          email: "رسالة بريد إلكتروني تسويقية احترافية مع عنوان جذاب ومحتوى مقنع",
+          email:
+            "رسالة بريد إلكتروني تسويقية احترافية مع عنوان جذاب ومحتوى مقنع",
           seo: "مقال تسويقي محسّن لمحركات البحث مع كلمات مفتاحية مناسبة",
         };
 
@@ -115,7 +150,11 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
 
         const response = await invokeLLM({
           messages: [
-            { role: "system", content: "أنت خبير تسويق رقمي متخصص في إنشاء محتوى إعلاني احترافي للسوق الخليجي." },
+            {
+              role: "system",
+              content:
+                "أنت خبير تسويق رقمي متخصص في إنشاء محتوى إعلاني احترافي للسوق الخليجي.",
+            },
             { role: "user", content: prompt },
           ],
         });
@@ -140,7 +179,9 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
     list: protectedProcedure.query(async ({ ctx }) => {
       const db = await getDb();
       if (!db) return [];
-      return await db.select().from(campaigns)
+      return await db
+        .select()
+        .from(campaigns)
         .where(eq(campaigns.userId, ctx.user.id))
         .orderBy(desc(campaigns.createdAt))
         .limit(20);
@@ -150,11 +191,13 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
   // Design
   design: router({
     generate: protectedProcedure
-      .input(z.object({
-        prompt: z.string().min(1).max(500),
-        style: z.string().default("modern"),
-        category: z.string().default("logo"),
-      }))
+      .input(
+        z.object({
+          prompt: z.string().min(1).max(500),
+          style: z.string().default("modern"),
+          category: z.string().default("logo"),
+        })
+      )
       .mutation(async ({ input, ctx }) => {
         const styleMap: Record<string, string> = {
           modern: "modern, contemporary, clean",
@@ -188,7 +231,9 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
     history: protectedProcedure.query(async ({ ctx }) => {
       const db = await getDb();
       if (!db) return [];
-      return await db.select().from(designRequests)
+      return await db
+        .select()
+        .from(designRequests)
         .where(eq(designRequests.userId, ctx.user.id))
         .orderBy(desc(designRequests.createdAt))
         .limit(20);
@@ -198,13 +243,17 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
   // Feedback
   feedback: router({
     submit: publicProcedure
-      .input(z.object({
-        name: z.string().min(1).max(256),
-        email: z.string().email().optional(),
-        message: z.string().min(5).max(2000),
-        rating: z.number().min(1).max(5).optional(),
-        type: z.enum(["review", "suggestion", "complaint", "support"]).default("review"),
-      }))
+      .input(
+        z.object({
+          name: z.string().min(1).max(256),
+          email: z.string().email().optional(),
+          message: z.string().min(5).max(2000),
+          rating: z.number().min(1).max(5).optional(),
+          type: z
+            .enum(["review", "suggestion", "complaint", "support"])
+            .default("review"),
+        })
+      )
       .mutation(async ({ input, ctx }) => {
         const db = await getDb();
         if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
@@ -225,7 +274,9 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
     list: publicProcedure.query(async () => {
       const db = await getDb();
       if (!db) return [];
-      return await db.select().from(feedback)
+      return await db
+        .select()
+        .from(feedback)
         .where(eq(feedback.status, "reviewed"))
         .orderBy(desc(feedback.createdAt))
         .limit(10);
@@ -237,22 +288,31 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
     list: publicProcedure.query(async () => {
       const db = await getDb();
       if (!db) return [];
-      return await db.select().from(updates)
+      return await db
+        .select()
+        .from(updates)
         .where(eq(updates.isPublished, true))
         .orderBy(desc(updates.createdAt))
         .limit(20);
     }),
 
     create: protectedProcedure
-      .input(z.object({
-        title: z.string().min(1).max(512),
-        description: z.string().min(1),
-        version: z.string().optional(),
-        type: z.enum(["feature", "improvement", "bugfix", "announcement"]).default("feature"),
-      }))
+      .input(
+        z.object({
+          title: z.string().min(1).max(512),
+          description: z.string().min(1),
+          version: z.string().optional(),
+          type: z
+            .enum(["feature", "improvement", "bugfix", "announcement"])
+            .default("feature"),
+        })
+      )
       .mutation(async ({ input, ctx }) => {
         if (ctx.user.role !== "admin") {
-          throw new TRPCError({ code: "FORBIDDEN", message: "غير مصرح لك بهذا الإجراء" });
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "غير مصرح لك بهذا الإجراء",
+          });
         }
         const db = await getDb();
         if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
@@ -273,14 +333,16 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
   // Stripe Payments
   stripe: router({
     createCheckoutSession: protectedProcedure
-      .input(z.object({
-        priceId: z.string(),
-        planId: z.string(),
-      }))
+      .input(
+        z.object({
+          priceId: z.string(),
+          planId: z.string(),
+        })
+      )
       .mutation(async ({ input, ctx }) => {
         const successUrl = `${ctx.req.headers.origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`;
         const cancelUrl = `${ctx.req.headers.origin}/pricing`;
-        
+
         const url = await createCheckoutSession(
           ctx.user.id,
           ctx.user.email || "",
@@ -289,7 +351,7 @@ ${input.productDesc ? `وصف إضافي: ${input.productDesc}` : ""}
           cancelUrl,
           ctx.user.name || undefined
         );
-        
+
         return { url };
       }),
 

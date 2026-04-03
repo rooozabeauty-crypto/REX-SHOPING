@@ -4,10 +4,27 @@ import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import {
-  Crown, TrendingUp, Globe, BarChart3, Users, Mail,
-  ShoppingBag, Bot, Megaphone, Lock, CheckCircle,
-  Zap, Star, ArrowLeft, Instagram, Twitter, Youtube,
-  DollarSign, FileText, Target, Layers
+  Crown,
+  TrendingUp,
+  Globe,
+  BarChart3,
+  Users,
+  Mail,
+  ShoppingBag,
+  Bot,
+  Megaphone,
+  Lock,
+  CheckCircle,
+  Zap,
+  Star,
+  ArrowLeft,
+  Instagram,
+  Twitter,
+  Youtube,
+  DollarSign,
+  FileText,
+  Target,
+  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -230,20 +247,54 @@ export default function Services() {
             </div>
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm">
-            <Link href="/" className="text-gray-300 hover:text-blue-400 transition-colors">الرئيسية</Link>
-            <Link href="/services" className="text-blue-400 font-bold">الخدمات</Link>
-            <Link href="/design" className="text-gray-300 hover:text-blue-400 transition-colors">التصميم</Link>
-            <Link href="/campaigns" className="text-gray-300 hover:text-blue-400 transition-colors">الحملات</Link>
-            <Link href="/assistant" className="text-gray-300 hover:text-blue-400 transition-colors">المساعد</Link>
-            <Link href="/support" className="text-gray-300 hover:text-blue-400 transition-colors">الدعم</Link>
+            <Link
+              href="/"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الرئيسية
+            </Link>
+            <Link href="/services" className="text-blue-400 font-bold">
+              الخدمات
+            </Link>
+            <Link
+              href="/design"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              التصميم
+            </Link>
+            <Link
+              href="/campaigns"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الحملات
+            </Link>
+            <Link
+              href="/assistant"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              المساعد
+            </Link>
+            <Link
+              href="/support"
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              الدعم
+            </Link>
           </div>
           <div>
             {isAuthenticated ? (
               <Link href="/dashboard">
-                <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">لوحة التحكم</button>
+                <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">
+                  لوحة التحكم
+                </button>
               </Link>
             ) : (
-              <a href={getLoginUrl()} className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors">ابدأ مجاناً</a>
+              <a
+                href={getLoginUrl()}
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-bold transition-colors"
+              >
+                ابدأ مجاناً
+              </a>
             )}
           </div>
         </div>
@@ -251,8 +302,12 @@ export default function Services() {
 
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30"
-          style={{ background: "radial-gradient(ellipse at 50% 30%, #1a1a4e 0%, #080810 70%)" }}
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 30%, #1a1a4e 0%, #080810 70%)",
+          }}
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
           <motion.div
@@ -261,7 +316,9 @@ export default function Services() {
             className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 rounded-full px-4 py-2 mb-8"
           >
             <Zap className="w-4 h-4 text-blue-400" />
-            <span className="text-blue-300 text-sm">خدمات تسويقية شاملة مدعومة بالذكاء الاصطناعي</span>
+            <span className="text-blue-300 text-sm">
+              خدمات تسويقية شاملة مدعومة بالذكاء الاصطناعي
+            </span>
           </motion.div>
           <h1 className="text-5xl md:text-6xl font-black mb-6">
             <span className="text-white">خدماتنا</span>
@@ -277,10 +334,15 @@ export default function Services() {
       {/* Social Platforms */}
       <section className="py-8 bg-[#0d0d18]">
         <div className="max-w-7xl mx-auto px-4">
-          <p className="text-center text-gray-500 text-sm mb-6">ندعم جميع المنصات الرئيسية</p>
+          <p className="text-center text-gray-500 text-sm mb-6">
+            ندعم جميع المنصات الرئيسية
+          </p>
           <div className="flex flex-wrap justify-center gap-3">
             {platforms.map((p, i) => (
-              <div key={i} className={`flex items-center gap-2 bg-gradient-to-r ${p.color} px-4 py-2 rounded-full text-white text-sm font-medium`}>
+              <div
+                key={i}
+                className={`flex items-center gap-2 bg-gradient-to-r ${p.color} px-4 py-2 rounded-full text-white text-sm font-medium`}
+              >
                 <span>{p.icon}</span>
                 {p.name}
               </div>
@@ -304,24 +366,32 @@ export default function Services() {
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-[#111] flex items-center justify-center`}>
+                  <div
+                    className={`w-12 h-12 rounded-xl bg-[#111] flex items-center justify-center`}
+                  >
                     <service.icon className={`w-6 h-6 ${service.iconColor}`} />
                   </div>
                   <div className="text-left">
                     <div className="text-xs text-gray-500">من</div>
-                    <div className={`text-lg font-black ${service.iconColor}`}>{service.price} ر.س</div>
+                    <div className={`text-lg font-black ${service.iconColor}`}>
+                      {service.price} ر.س
+                    </div>
                     <div className="text-xs text-gray-600">/ شهرياً</div>
                   </div>
                 </div>
 
-                <h3 className="text-white font-black text-lg mb-2">{service.title}</h3>
+                <h3 className="text-white font-black text-lg mb-2">
+                  {service.title}
+                </h3>
                 <p className="text-gray-400 text-sm mb-4">{service.desc}</p>
 
                 {/* Features */}
                 <div className="space-y-2 mb-5">
                   {service.features.map((f, j) => (
                     <div key={j} className="flex items-center gap-2">
-                      <CheckCircle className={`w-3.5 h-3.5 ${service.iconColor} flex-shrink-0`} />
+                      <CheckCircle
+                        className={`w-3.5 h-3.5 ${service.iconColor} flex-shrink-0`}
+                      />
                       <span className="text-gray-300 text-xs">{f}</span>
                     </div>
                   ))}
@@ -329,7 +399,9 @@ export default function Services() {
 
                 {/* Trial Badge */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className={`text-xs px-2 py-1 rounded-full bg-[#111] ${service.iconColor}`}>
+                  <span
+                    className={`text-xs px-2 py-1 rounded-full bg-[#111] ${service.iconColor}`}
+                  >
                     ✨ {service.trial}
                   </span>
                 </div>
@@ -358,10 +430,26 @@ export default function Services() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: "🤖", title: "ذكاء اصطناعي متقدم", desc: "تقنيات AI أحدث لتحسين نتائجك" },
-              { icon: "🇸🇦", title: "خبرة خليجية", desc: "نفهم السوق الخليجي وطبيعته" },
-              { icon: "📊", title: "نتائج مضمونة", desc: "98% من عملائنا يحققون نمواً ملموساً" },
-              { icon: "🔗", title: "تكامل شامل", desc: "ربط مع أبرز منصات التجارة الإلكترونية" },
+              {
+                icon: "🤖",
+                title: "ذكاء اصطناعي متقدم",
+                desc: "تقنيات AI أحدث لتحسين نتائجك",
+              },
+              {
+                icon: "🇸🇦",
+                title: "خبرة خليجية",
+                desc: "نفهم السوق الخليجي وطبيعته",
+              },
+              {
+                icon: "📊",
+                title: "نتائج مضمونة",
+                desc: "98% من عملائنا يحققون نمواً ملموساً",
+              },
+              {
+                icon: "🔗",
+                title: "تكامل شامل",
+                desc: "ربط مع أبرز منصات التجارة الإلكترونية",
+              },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -389,7 +477,8 @@ export default function Services() {
               مش عارف من أين تبدأ؟
             </h2>
             <p className="text-gray-400 mb-6">
-              تحدث مع مساعدنا الذكي ريكس وسيساعدك في اختيار الخدمات المناسبة لمتجرك
+              تحدث مع مساعدنا الذكي ريكس وسيساعدك في اختيار الخدمات المناسبة
+              لمتجرك
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/assistant">
@@ -412,7 +501,8 @@ export default function Services() {
       <footer className="bg-[#060608] border-t border-blue-900/20 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ REX-SHOP™ | منصة التسويق الرقمي الذكي
+            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ
+            REX-SHOP™ | منصة التسويق الرقمي الذكي
           </p>
         </div>
       </footer>

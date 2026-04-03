@@ -5,8 +5,14 @@ import type { TrpcContext } from "./_core/context";
 
 type AuthenticatedUser = NonNullable<TrpcContext["user"]>;
 
-function createAuthContext(role: "user" | "admin" = "user"): { ctx: TrpcContext; clearedCookies: Array<{ name: string; options: Record<string, unknown> }> } {
-  const clearedCookies: Array<{ name: string; options: Record<string, unknown> }> = [];
+function createAuthContext(role: "user" | "admin" = "user"): {
+  ctx: TrpcContext;
+  clearedCookies: Array<{ name: string; options: Record<string, unknown> }>;
+} {
+  const clearedCookies: Array<{
+    name: string;
+    options: Record<string, unknown>;
+  }> = [];
 
   const user: AuthenticatedUser = {
     id: 1,

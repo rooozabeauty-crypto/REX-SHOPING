@@ -4,8 +4,15 @@ import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import {
-  ArrowRight, AlertCircle, CheckCircle, Clock, Zap,
-  TrendingUp, Users, Sparkles, Shield
+  ArrowRight,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  Zap,
+  TrendingUp,
+  Users,
+  Sparkles,
+  Shield,
 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -34,11 +41,12 @@ export default function SubscriptionManager() {
   });
 
   const currentSubscription = subscriptionQuery.data;
-  const currentPlan = currentSubscription?.stripePriceId === "price_pro"
-    ? "pro"
-    : currentSubscription?.stripePriceId === "price_enterprise"
-    ? "enterprise"
-    : "basic";
+  const currentPlan =
+    currentSubscription?.stripePriceId === "price_pro"
+      ? "pro"
+      : currentSubscription?.stripePriceId === "price_enterprise"
+        ? "enterprise"
+        : "basic";
 
   const plans = [
     {
@@ -129,7 +137,9 @@ export default function SubscriptionManager() {
               العودة إلى لوحة التحكم
             </button>
           </Link>
-          <h1 className="text-4xl font-black text-white mb-2">إدارة الاشتراك</h1>
+          <h1 className="text-4xl font-black text-white mb-2">
+            إدارة الاشتراك
+          </h1>
           <p className="text-gray-400">ترقية أو تخفيض خطتك في أي وقت</p>
         </div>
       </div>
@@ -144,13 +154,15 @@ export default function SubscriptionManager() {
           >
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-black text-white mb-2">خطتك الحالية</h2>
+                <h2 className="text-2xl font-black text-white mb-2">
+                  خطتك الحالية
+                </h2>
                 <p className="text-gray-400">
                   {currentPlan === "pro"
                     ? "الخطة الاحترافية"
                     : currentPlan === "enterprise"
-                    ? "الخطة المتقدمة"
-                    : "الخطة الأساسية"}
+                      ? "الخطة المتقدمة"
+                      : "الخطة الأساسية"}
                 </p>
               </div>
               <div className="text-right">
@@ -163,14 +175,20 @@ export default function SubscriptionManager() {
                   ) : (
                     <>
                       <Clock className="w-5 h-5 text-yellow-400" />
-                      <span className="text-yellow-400 font-bold">قيد الانتظار</span>
+                      <span className="text-yellow-400 font-bold">
+                        قيد الانتظار
+                      </span>
                     </>
                   )}
                 </div>
                 <p className="text-gray-400 text-sm">
                   التجديد في{" "}
                   {currentSubscription.currentPeriodEnd
-                    ? format(new Date(currentSubscription.currentPeriodEnd), "dd MMM", { locale: ar })
+                    ? format(
+                        new Date(currentSubscription.currentPeriodEnd),
+                        "dd MMM",
+                        { locale: ar }
+                      )
                     : "—"}
                 </p>
               </div>
@@ -183,8 +201,8 @@ export default function SubscriptionManager() {
                   {currentPlan === "pro"
                     ? "500"
                     : currentPlan === "enterprise"
-                    ? "∞"
-                    : "50"}
+                      ? "∞"
+                      : "50"}
                 </p>
               </div>
               <div className="bg-[#0a0a0a] rounded-lg p-4">
@@ -193,8 +211,8 @@ export default function SubscriptionManager() {
                   {currentPlan === "pro"
                     ? "500"
                     : currentPlan === "enterprise"
-                    ? "∞"
-                    : "100"}
+                      ? "∞"
+                      : "100"}
                 </p>
               </div>
               <div className="bg-[#0a0a0a] rounded-lg p-4">
@@ -203,8 +221,8 @@ export default function SubscriptionManager() {
                   {currentPlan === "pro"
                     ? "5"
                     : currentPlan === "enterprise"
-                    ? "∞"
-                    : "1"}
+                      ? "∞"
+                      : "1"}
                 </p>
               </div>
             </div>
@@ -239,12 +257,16 @@ export default function SubscriptionManager() {
                   </div>
                 )}
 
-                <h3 className="text-2xl font-black text-white mb-2">{plan.name}</h3>
+                <h3 className="text-2xl font-black text-white mb-2">
+                  {plan.name}
+                </h3>
                 <p className="text-gray-400 text-sm mb-6">{plan.description}</p>
 
                 <div className="mb-8">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-white">{plan.price}</span>
+                    <span className="text-4xl font-black text-white">
+                      {plan.price}
+                    </span>
                     <span className="text-gray-400">/{plan.period}</span>
                   </div>
                 </div>
@@ -261,17 +283,27 @@ export default function SubscriptionManager() {
                   {currentPlan === plan.id
                     ? "خطتك الحالية"
                     : currentPlan === "enterprise"
-                    ? "تخفيض"
-                    : "الترقية"}
+                      ? "تخفيض"
+                      : "الترقية"}
                 </button>
 
                 <div className="space-y-3">
                   {plan.features.map((feature, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className={feature.included ? "text-green-400" : "text-gray-600"}>
+                      <div
+                        className={
+                          feature.included ? "text-green-400" : "text-gray-600"
+                        }
+                      >
                         <CheckCircle className="w-5 h-5" />
                       </div>
-                      <span className={feature.included ? "text-gray-300" : "text-gray-600 line-through"}>
+                      <span
+                        className={
+                          feature.included
+                            ? "text-gray-300"
+                            : "text-gray-600 line-through"
+                        }
+                      >
                         {feature.text}
                       </span>
                     </div>
@@ -286,7 +318,9 @@ export default function SubscriptionManager() {
       {/* FAQ */}
       <section className="py-16 bg-[#0d0d0d]">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-black text-white mb-12 text-center">أسئلة شائعة</h2>
+          <h2 className="text-3xl font-black text-white mb-12 text-center">
+            أسئلة شائعة
+          </h2>
 
           <div className="space-y-6">
             {[
@@ -323,7 +357,8 @@ export default function SubscriptionManager() {
       <footer className="bg-[#080808] border-t border-yellow-900/20 py-8">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ REX-SHOP™
+            © {new Date().getFullYear()} REX-SHOP. جميع الحقوق محفوظة لـ
+            REX-SHOP™
           </p>
         </div>
       </footer>

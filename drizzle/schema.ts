@@ -32,8 +32,12 @@ export type InsertUser = typeof users.$inferInsert;
 export const subscriptions = mysqlTable("subscriptions", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
-  plan: mysqlEnum("plan", ["free", "basic", "pro", "enterprise"]).default("free").notNull(),
-  status: mysqlEnum("status", ["active", "expired", "cancelled", "trial"]).default("trial").notNull(),
+  plan: mysqlEnum("plan", ["free", "basic", "pro", "enterprise"])
+    .default("free")
+    .notNull(),
+  status: mysqlEnum("status", ["active", "expired", "cancelled", "trial"])
+    .default("trial")
+    .notNull(),
   startDate: timestamp("startDate").defaultNow().notNull(),
   endDate: timestamp("endDate"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -50,7 +54,9 @@ export const campaigns = mysqlTable("campaigns", {
   type: mysqlEnum("type", ["text", "post", "video", "email", "seo"]).notNull(),
   content: text("content"),
   imageUrl: text("imageUrl"),
-  status: mysqlEnum("status", ["draft", "active", "completed"]).default("draft").notNull(),
+  status: mysqlEnum("status", ["draft", "active", "completed"])
+    .default("draft")
+    .notNull(),
   platform: varchar("platform", { length: 128 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
@@ -65,7 +71,9 @@ export const designRequests = mysqlTable("design_requests", {
   prompt: text("prompt").notNull(),
   imageUrl: text("imageUrl"),
   style: varchar("style", { length: 128 }),
-  status: mysqlEnum("status", ["pending", "completed", "failed"]).default("pending").notNull(),
+  status: mysqlEnum("status", ["pending", "completed", "failed"])
+    .default("pending")
+    .notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
@@ -79,8 +87,12 @@ export const feedback = mysqlTable("feedback", {
   email: varchar("email", { length: 320 }),
   message: text("message").notNull(),
   rating: int("rating"),
-  type: mysqlEnum("type", ["review", "suggestion", "complaint", "support"]).default("review").notNull(),
-  status: mysqlEnum("status", ["pending", "reviewed", "resolved"]).default("pending").notNull(),
+  type: mysqlEnum("type", ["review", "suggestion", "complaint", "support"])
+    .default("review")
+    .notNull(),
+  status: mysqlEnum("status", ["pending", "reviewed", "resolved"])
+    .default("pending")
+    .notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
@@ -92,7 +104,9 @@ export const updates = mysqlTable("platform_updates", {
   title: varchar("title", { length: 512 }).notNull(),
   description: text("description").notNull(),
   version: varchar("version", { length: 32 }),
-  type: mysqlEnum("type", ["feature", "improvement", "bugfix", "announcement"]).default("feature").notNull(),
+  type: mysqlEnum("type", ["feature", "improvement", "bugfix", "announcement"])
+    .default("feature")
+    .notNull(),
   isPublished: boolean("isPublished").default(false).notNull(),
   publishedAt: timestamp("publishedAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -116,9 +130,17 @@ export type ChatMessage = typeof chatMessages.$inferSelect;
 export const stripeSubscriptions = mysqlTable("stripe_subscriptions", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
-  stripeSubscriptionId: varchar("stripeSubscriptionId", { length: 256 }).notNull().unique(),
+  stripeSubscriptionId: varchar("stripeSubscriptionId", { length: 256 })
+    .notNull()
+    .unique(),
   stripePriceId: varchar("stripePriceId", { length: 256 }).notNull(),
-  status: mysqlEnum("status", ["active", "past_due", "unpaid", "canceled", "trialing"]).notNull(),
+  status: mysqlEnum("status", [
+    "active",
+    "past_due",
+    "unpaid",
+    "canceled",
+    "trialing",
+  ]).notNull(),
   currentPeriodStart: timestamp("currentPeriodStart"),
   currentPeriodEnd: timestamp("currentPeriodEnd"),
   canceledAt: timestamp("canceledAt"),
@@ -132,10 +154,18 @@ export type StripeSubscription = typeof stripeSubscriptions.$inferSelect;
 export const stripePayments = mysqlTable("stripe_payments", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
-  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 256 }).notNull().unique(),
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 256 })
+    .notNull()
+    .unique(),
   amount: bigint("amount", { mode: "number" }).notNull(),
   currency: varchar("currency", { length: 3 }).default("usd").notNull(),
-  status: mysqlEnum("status", ["succeeded", "processing", "requires_payment_method", "requires_action", "canceled"]).notNull(),
+  status: mysqlEnum("status", [
+    "succeeded",
+    "processing",
+    "requires_payment_method",
+    "requires_action",
+    "canceled",
+  ]).notNull(),
   description: text("description"),
   metadata: json("metadata"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -148,11 +178,19 @@ export type StripePayment = typeof stripePayments.$inferSelect;
 export const stripeInvoices = mysqlTable("stripe_invoices", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
-  stripeInvoiceId: varchar("stripeInvoiceId", { length: 256 }).notNull().unique(),
+  stripeInvoiceId: varchar("stripeInvoiceId", { length: 256 })
+    .notNull()
+    .unique(),
   stripeSubscriptionId: varchar("stripeSubscriptionId", { length: 256 }),
   amount: bigint("amount", { mode: "number" }).notNull(),
   currency: varchar("currency", { length: 3 }).default("usd").notNull(),
-  status: mysqlEnum("status", ["draft", "open", "paid", "void", "uncollectible"]).notNull(),
+  status: mysqlEnum("status", [
+    "draft",
+    "open",
+    "paid",
+    "void",
+    "uncollectible",
+  ]).notNull(),
   pdfUrl: text("pdfUrl"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),

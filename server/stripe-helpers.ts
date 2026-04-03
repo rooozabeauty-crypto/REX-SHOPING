@@ -1,6 +1,11 @@
 import Stripe from "stripe";
 import { getDb } from "./db";
-import { stripeSubscriptions, stripePayments, stripeInvoices, users } from "../drizzle/schema";
+import {
+  stripeSubscriptions,
+  stripePayments,
+  stripeInvoices,
+  users,
+} from "../drizzle/schema";
 import { eq } from "drizzle-orm";
 
 let stripe: any = null;
@@ -17,13 +22,21 @@ function getStripe() {
 /**
  * Create or get a Stripe customer for a user
  */
-export async function getOrCreateStripeCustomer(userId: number, email: string, name?: string) {
+export async function getOrCreateStripeCustomer(
+  userId: number,
+  email: string,
+  name?: string
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
   // Get user from database
-  const userRecord = await db.select().from(users).where(eq(users.id, userId)).limit(1);
-  
+  const userRecord = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, userId))
+    .limit(1);
+
   if (userRecord.length > 0 && userRecord[0].stripeCustomerId) {
     return userRecord[0].stripeCustomerId;
   }
@@ -40,7 +53,10 @@ export async function getOrCreateStripeCustomer(userId: number, email: string, n
   });
 
   // Save customer ID to database
-  await db.update(users).set({ stripeCustomerId: customer.id }).where(eq(users.id, userId));
+  await db
+    .update(users)
+    .set({ stripeCustomerId: customer.id })
+    .where(eq(users.id, userId));
 
   return customer.id;
 }
@@ -126,7 +142,9 @@ export async function createPaymentCheckoutSession(
 /**
  * Handle subscription created webhook
  */
-export async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
+export async function handleSubscriptionCreated(
+  subscription: Stripe.Subscription
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -141,7 +159,9 @@ export async function handleSubscriptionCreated(subscription: Stripe.Subscriptio
     stripeSubscriptionId: subscription.id,
     stripePriceId: priceId,
     status: subscription.status as any,
-    currentPeriodStart: new Date((subscription as any).current_period_start * 1000),
+    currentPeriodStart: new Date(
+      (subscription as any).current_period_start * 1000
+    ),
     currentPeriodEnd: new Date((subscription as any).current_period_end * 1000),
   });
 }
@@ -149,7 +169,9 @@ export async function handleSubscriptionCreated(subscription: Stripe.Subscriptio
 /**
  * Handle subscription updated webhook
  */
-export async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
+export async function handleSubscriptionUpdated(
+  subscription: Stripe.Subscription
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -157,9 +179,15 @@ export async function handleSubscriptionUpdated(subscription: Stripe.Subscriptio
     .update(stripeSubscriptions)
     .set({
       status: subscription.status as any,
-      currentPeriodStart: new Date((subscription as any).current_period_start * 1000),
-      currentPeriodEnd: new Date((subscription as any).current_period_end * 1000),
-      canceledAt: (subscription as any).canceled_at ? new Date((subscription as any).canceled_at * 1000) : null,
+      currentPeriodStart: new Date(
+        (subscription as any).current_period_start * 1000
+      ),
+      currentPeriodEnd: new Date(
+        (subscription as any).current_period_end * 1000
+      ),
+      canceledAt: (subscription as any).canceled_at
+        ? new Date((subscription as any).canceled_at * 1000)
+        : null,
     })
     .where(eq(stripeSubscriptions.stripeSubscriptionId, subscription.id));
 }
@@ -167,7 +195,9 @@ export async function handleSubscriptionUpdated(subscription: Stripe.Subscriptio
 /**
  * Handle subscription deleted webhook
  */
-export async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+export async function handleSubscriptionDeleted(
+  subscription: Stripe.Subscription
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -183,7 +213,9 @@ export async function handleSubscriptionDeleted(subscription: Stripe.Subscriptio
 /**
  * Handle payment intent succeeded webhook
  */
-export async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent) {
+export async function handlePaymentIntentSucceeded(
+  paymentIntent: Stripe.PaymentIntent
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -249,7 +281,7 @@ export async function getUserPaymentHistory(userId: number) {
     .select()
     .from(stripePayments)
     .where(eq(stripePayments.userId, userId))
-    .orderBy((t) => t.createdAt);
+    .orderBy(t => t.createdAt);
 }
 
 /**
@@ -263,7 +295,7 @@ export async function getUserInvoices(userId: number) {
     .select()
     .from(stripeInvoices)
     .where(eq(stripeInvoices.userId, userId))
-    .orderBy((t) => t.createdAt);
+    .orderBy(t => t.createdAt);
 }
 
 export { getStripe };
