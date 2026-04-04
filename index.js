@@ -6,10 +6,10 @@ app.use(express.json());
 
 // الصفحة الرئيسية
 app.get('/', (req, res) => {
-  res.send('🚀 Rex Shop API يعمل بنجاح');
+  res.send('🚀 Rex Shop API يعمل');
 });
 
-// 🔗 OAuth Callback (سلة)
+// callback من سلة
 app.get('/api/callback', async (req, res) => {
   const code = req.query.code;
 
@@ -25,8 +25,24 @@ app.get('/api/callback', async (req, res) => {
       },
       body: JSON.stringify({
         grant_type: 'authorization_code',
-        client_id: process.env.CLIENT_ID, 7e42b932-6690-477d-aba0-a9fca78047e5
-        client_secret: process.env.CLIENT_SECRET, fb00757f191f6e75ea747a4cefbaf6b977c0b187c9060b4caab2e4367409dce5
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
         code: code,
-        redirect_uri: 'https://rex-shop-4.onrender.com/api/callback'
+        redirect_uri: 'https://rex-shop-4.vercel.app/api/callback',
       }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    res.send('✅ تم الربط بنجاح 🔥');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('❌ خطأ في السيرفر');
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log('🚀 Server running on port ' + PORT);
+});
