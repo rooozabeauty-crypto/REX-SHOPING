@@ -1,44 +1,24 @@
-const express = require("express");
-const fetch = require("node-fetch");
+const express = require('express');
+const fetch = require('node-fetch');
 
 const app = express();
 
-app.get("/api/callback", async (req, res) => {
+// مهم جدًا لقراءة JSON من سلة
+app.use(express.json());
+
+// الصفحة الرئيسية (اختياري)
+app.get('/', (req, res) => {
+  res.send('🚀 Rex Shop API is running');
+});
+
+
+// 🔐 OAuth Callback من سلة
+app.get('/api/callback', async (req, res) => {
   const code = req.query.code;
 
-  // لو ما فيه code
   if (!code) {
-    return res.send("❌ No code provided");
+    return res.send('❌ لم يتم تقديم أي رمز');
   }
 
   try {
-    const response = await fetch("https://accounts.salla.sa/oauth2/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        grant_type: "authorization_code",
-        client_id: "7e42b932-6690-477d-aba0-a9fca78047e5",
-        client_secret: "fb00757f191f6e75ea747a4cefbaf6b977c0b187c9060b4caab2e4367409dce5",
-        code: code,
-        redirect_uri: "https://rex-shop4-1.onrender.com/api/callback"
-      })
-    });
-
-    const data = await response.json();
-
-    res.json(data);
-
-  } catch (err) {
-    res.send("❌ Error getting token");
-  }
-});
-
-app.get("/", (req, res) => {
-  res.send("🚀 API is running");
-});
-
-app.listen(3000, () => {
-  console.log("Server started 🚀");
-});
+    const response = await
