@@ -1,26 +1,57 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Rex Shop</title>
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>REX-SHOP | منصة التسويق الرقمي الذكي</title>    
-    <!-- THIS IS THE START OF A COMMENT BLOCK, BLOCK TO BE DELETED: Google Fonts here, example:
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    THIS IS THE END OF A COMMENT BLOCK, BLOCK TO BE DELETED -->
-  </head>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 100px;
+      background: #f9fafb;
+    }
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
-  </body>
+    h1 {
+      color: #333;
+    }
 
+    button {
+      padding: 15px 25px;
+      background: #7c3aed;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #5b21b6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🚀 Rex Shop</h1>
+  <p>اربط متجرك مع سلة بسهولة</p>
+
+  <button onclick="connectSalla()">
+    🔗 ربط مع سلة
+  </button>
+
+  <script>
+    function connectSalla() {
+      const clientId = "7e42b932-6690-477d-aba0-a9fca78047e5";
+      const redirectUri = "https://rex-shop-4.vercel.app/api/callback";
+
+      const url = `https://accounts.salla.sa/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+
+      window.location.href = url;
+    }
+  </script>
+
+</body>
 </html>
