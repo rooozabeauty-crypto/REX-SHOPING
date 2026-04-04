@@ -1,15 +1,12 @@
 export default async function handler(req, res) {
   const { code } = req.query;
 
-  // إذا ما فيه code
   if (!code) {
-    return res.status(200).json({
-      message: "No code provided"
-    });
+    return res.status(200).send("No code provided");
   }
 
   try {
-    const tokenResponse = await fetch("https://accounts.salla.sa/oauth2/token", {
+    const response = await fetch("https://accounts.salla.sa/oauth2/token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -23,17 +20,11 @@ export default async function handler(req, res) {
       })
     });
 
-    const data = await tokenResponse.json();
+    const data = await response.json();
 
-    return res.status(200).json({
-      success: true,
-      data: data
-    });
+    return res.status(200).json(data);
 
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      error: "Failed to get access token"
-    });
+    return res.status(500).send("Error getting token");
   }
 }
